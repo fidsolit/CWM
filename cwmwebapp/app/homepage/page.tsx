@@ -1,12 +1,13 @@
 // pages/index.js
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "../components/navbar";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navbar */}
-
+      {/* <Navbar /> */}
       {/* Hero Section */}
       <section id="home" className="relative bg-blue-950 text-white">
         <div className="container mx-auto px-6 py-16 text-center">

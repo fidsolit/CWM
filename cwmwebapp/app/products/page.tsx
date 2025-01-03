@@ -5,38 +5,42 @@ export default function Products() {
   const products = [
     {
       id: 1,
-      name: "Pain Relief Tablets",
-      description: "Effective relief from pain and inflammation.",
-      price: "$15.99",
-      image: "/images/pain-relief.jpg",
+      name: "NOVOSMART Drops 20ML",
+      description:
+        "NOVOSMART Drops offer a premium daily dose of Omega 3 specifically formulated for children, ensuring optimum health and development. Our meticulously crafted Omega 3 is sourced from Europe, promising an unparalleled level of high quality and purity that you can confidently rely on. Each pack of NOVOSMART Drops comes with a dedicated, easy-to-use syringe for exact dosing, making it exceptionally simple and precise for parents to administer the daily required amount. The product is carefully packed in a sturdy glass bottle, ensuring that Omega 3 remains stable and well-protected from harmful environmental effects such as light and air exposure. You can trust Central West Shop to consistently provide the very best products for your child’s wellness needs, as we prioritize your child’s health and developmental milestones.",
+      price: "₱590.00",
+      image: "/products/NOVOSMART.webp",
     },
     {
       id: 2,
-      name: "Thermometers",
-      description: "Accurate and easy-to-use digital thermometers.",
-      price: "$9.99",
-      image: "/images/thermometers.jpg",
+      name: "ZENTOKID ZINC (Box of 20s)",
+      description:
+        "Zentokid combines non acidic Vitamin C and Zinc, to help children maintain a healthy immune system, support growth and development and promote overall well-being",
+      price: "₱320.00",
+      image: "/products/zentokid zinc.webp",
     },
     {
       id: 3,
-      name: "Vitamin Supplements",
-      description: "Boost your immune system with premium vitamins.",
-      price: "$24.99",
-      image: "/images/vitamins.jpg",
+      name: "CENTRACID GEL",
+      description:
+        "Generic Name: Aluminum Hydroxide+Magensium Hydroxide+Oxetacaine Centracid is an effective solution for managing the discomfort and symptoms associated with hyperacidity and related conditions, offering patients comprehensive and immdediate relief",
+      price: "₱850.00",
+      image: "/products/centracid.webp",
     },
     {
       id: 4,
-      name: "Blood Pressure Monitor",
-      description: "Reliable and accurate blood pressure monitoring.",
+      name: "MOMOR SPF 50 SUNSCREEN (NON GREASY, MATTE FINISHED)",
+      description:
+        "Your skin deserves the best defense against harmful UV rays while nourishing it for a radiant, healthy glow. MOMOR offers broad-spectrum protection with lightweight, skin-loving ingredients for all-day confidence.",
       price: "$45.99",
-      image: "/images/blood-pressure.jpg",
+      image: "/products/MOMOR SPF 50 SUNSCREEN.webp",
     },
   ];
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
-      <div className="bg-teal-600 text-white py-12">
+      <div className=" bg-blue-950 text-white py-12">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-3xl font-bold">Explore Our Products</h1>
           <p className="mt-4 text-lg">
@@ -77,7 +81,7 @@ export default function Products() {
             <div className="p-4">
               <h3 className="text-lg font-semibold">{product.name}</h3>
               <p className="mt-2 text-gray-600 text-sm">
-                {product.description}
+                {/* {product.description} */}
               </p>
               <div className="mt-4 flex items-center justify-between">
                 <span className="text-teal-600 font-bold">{product.price}</span>
