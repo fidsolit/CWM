@@ -1,102 +1,204 @@
 // pages/index.js
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "../components/navbar";
+import { motion } from "framer-motion";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navbar */}
-      {/* <Navbar /> */}
       {/* Hero Section */}
-      <section id="home" className="relative bg-blue-950 text-white">
+      <motion.section
+        id="home"
+        className="relative bg-gradient-to-r from-blue-900 to-teal-700 text-white"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="container mx-auto px-6 py-16 text-center">
-          <h1 className="text-4xl font-bold">
+          <motion.h1
+            className="text-4xl sm:text-5xl font-bold leading-tight"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
             Your Trusted Partner in Pharmacy Distribution
-          </h1>
-          <p className="mt-4 text-lg">
+          </motion.h1>
+          <motion.p
+            className="mt-6 text-lg sm:text-xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
             Central West Marketing delivers healthcare products with reliability
             and excellence.
-          </p>
-          <div className="mt-6 space-x-4">
+          </motion.p>
+          <motion.div
+            className="mt-8 flex flex-col sm:flex-row justify-center gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
             <Link
               href="/products"
-              className="px-6 py-3 bg-white text-teal-600 font-semibold rounded hover:bg-gray-100"
+              className="px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg shadow hover:bg-gray-100 transition"
             >
               View Products
             </Link>
             <a
               href="#about"
-              className="px-6 py-3 bg-teal-700 font-semibold rounded hover:bg-teal-600"
+              className="px-8 py-4 bg-blue-800 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition"
             >
               Learn More
             </a>
-          </div>
+          </motion.div>
         </div>
-      </section>
+        <div className="absolute inset-0 opacity-20">
+          <Image
+            src="/images/hero-bg.jpg" // Replace with your hero background image
+            alt="Pharmacy Distribution"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+      </motion.section>
 
       {/* Features Section */}
       <section id="services" className="py-16 bg-gray-100">
         <div className="container mx-auto px-6">
-          <h2 className="text-2xl font-bold text-center text-gray-700">
+          <motion.h2
+            className="text-3xl font-bold text-center text-gray-800"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             Why Central West Marketing?
-          </h2>
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 bg-white shadow rounded text-center">
-              <div className="text-teal-600 text-4xl">🚚</div>
-              <h3 className="mt-4 text-xl font-semibold">Reliable Delivery</h3>
-              <p className="mt-2 text-gray-600">
-                Guaranteed timely delivery for all orders, nationwide.
-              </p>
-            </div>
-            <div className="p-6 bg-white shadow rounded text-center">
-              <div className="text-teal-600 text-4xl">💊</div>
-              <h3 className="mt-4 text-xl font-semibold">
-                Trusted Partnerships
-              </h3>
-              <p className="mt-2 text-gray-600">
-                Partnering with certified pharmaceutical manufacturers.
-              </p>
-            </div>
-            <div className="p-6 bg-white shadow rounded text-center">
-              <div className="text-teal-600 text-4xl">💵</div>
-              <h3 className="mt-4 text-xl font-semibold">Affordable Pricing</h3>
-              <p className="mt-2 text-gray-600">
-                Competitive prices with bulk discounts for distributors.
-              </p>
-            </div>
-          </div>
+          </motion.h2>
+          <motion.div
+            className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { delay: 0.2, staggerChildren: 0.2 },
+              },
+            }}
+          >
+            {[
+              {
+                icon: "/images/delivery-icon.png",
+                title: "Reliable Delivery",
+                description:
+                  "Guaranteed timely delivery for all orders, nationwide.",
+              },
+              {
+                icon: "/images/partnership-icon.png",
+                title: "Trusted Partnerships",
+                description:
+                  "Partnering with certified pharmaceutical manufacturers.",
+              },
+              {
+                icon: "/images/affordable-icon.png",
+                title: "Affordable Pricing",
+                description:
+                  "Competitive prices with bulk discounts for distributors.",
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                className="p-6 bg-white shadow-lg rounded-lg text-center"
+                variants={{
+                  hidden: { opacity: 0, scale: 0.95 },
+                  visible: { opacity: 1, scale: 1 },
+                }}
+              >
+                <Image
+                  src={feature.icon}
+                  alt={feature.title}
+                  width={80}
+                  height={80}
+                  className="mx-auto"
+                />
+                <h3 className="mt-6 text-xl font-semibold text-gray-800">
+                  {feature.title}
+                </h3>
+                <p className="mt-4 text-gray-600">{feature.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* Product Categories */}
+      {/* Product Categories Section */}
       <section id="products" className="py-16 bg-white">
         <div className="container mx-auto px-6">
-          <h2 className="text-2xl font-bold text-center text-gray-700">
+          <motion.h2
+            className="text-3xl font-bold text-center text-gray-800"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             Our Product Categories
-          </h2>
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <div className="p-4 bg-gray-100 rounded shadow text-center">
-              <div className="h-40 bg-gray-200 rounded"></div>
-              <h3 className="mt-4 font-semibold">Pharmaceuticals</h3>
-            </div>
-            <div className="p-4 bg-gray-100 rounded shadow text-center">
-              <div className="h-40 bg-gray-200 rounded"></div>
-              <h3 className="mt-4 font-semibold">Medical Supplies</h3>
-            </div>
-            <div className="p-4 bg-gray-100 rounded shadow text-center">
-              <div className="h-40 bg-gray-200 rounded"></div>
-              <h3 className="mt-4 font-semibold">Health Supplements</h3>
-            </div>
-          </div>
+          </motion.h2>
+          <motion.div
+            className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { delay: 0.2, staggerChildren: 0.2 },
+              },
+            }}
+          >
+            {[
+              {
+                image: "/images/pharmaceuticals.jpg",
+                title: "Pharmaceuticals",
+              },
+              {
+                image: "/images/medical-supplies.jpg",
+                title: "Medical Supplies",
+              },
+              {
+                image: "/images/health-supplements.jpg",
+                title: "Health Supplements",
+              },
+            ].map((category, index) => (
+              <motion.div
+                key={index}
+                className="p-4 bg-gray-100 shadow-lg rounded-lg text-center"
+                variants={{
+                  hidden: { opacity: 0, scale: 0.95 },
+                  visible: { opacity: 1, scale: 1 },
+                }}
+              >
+                <Image
+                  src={category.image}
+                  alt={category.title}
+                  width={300}
+                  height={200}
+                  className="rounded"
+                />
+                <h3 className="mt-6 font-semibold text-gray-800">
+                  {category.title}
+                </h3>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 bg-gray-800 text-white">
+      <footer className="py-12 bg-gray-900 text-gray-300">
         <div className="container mx-auto text-center">
           <p>&copy; 2025 Central West Marketing. All rights reserved.</p>
-          <div className="mt-4 space-x-4">
+          <div className="mt-6 flex justify-center space-x-8">
             <a href="#" className="text-teal-400 hover:underline">
               Privacy Policy
             </a>
