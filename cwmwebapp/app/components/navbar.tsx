@@ -119,17 +119,10 @@ export default function Navbar(): JSX.Element {
           )}
 
           <Link
-            href="/pages/TopAgent"
+            href="/products"
             className="hover:text-yellow-300 transition duration-300 font-semibold"
           >
-            TOP AGENTS
-          </Link>
-
-          <Link
-            href="/store"
-            className="hover:text-yellow-300 transition duration-300 font-semibold"
-          >
-            STORE
+            PRODUCTS
           </Link>
           <Link
             href="/services"

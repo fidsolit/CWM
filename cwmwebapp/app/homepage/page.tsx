@@ -55,7 +55,7 @@ export default function HomePage() {
         </div>
         <div className="absolute inset-0 opacity-20">
           <Image
-            src="/images/hero-bg.jpg" // Replace with your hero background image
+            src="/hero.jpg" // Replace with your hero background image
             alt="Pharmacy Distribution"
             layout="fill"
             objectFit="cover"
@@ -195,7 +195,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-gray-900 text-gray-300">
+      {/* <footer className="py-12 bg-gray-900 text-gray-300">
         <div className="container mx-auto text-center">
           <p>&copy; 2025 Central West Marketing. All rights reserved.</p>
           <div className="mt-6 flex justify-center space-x-8">
@@ -207,7 +207,7 @@ export default function HomePage() {
             </a>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 }
