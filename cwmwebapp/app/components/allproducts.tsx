@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
-import RemoveBtn from "./removeBtn";
+// import RemoveBtn from "./removeBtn";
 import { useState, useEffect } from "react";
 import { FcViewDetails } from "react-icons/fc";
 import { PHASE_PRODUCTION_BUILD } from "next/dist/shared/lib/constants";
@@ -141,7 +141,7 @@ export default function AllProduct() {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center space-x-4">
-                    <RemoveBtn id={p._id} />
+                    {/* <RemoveBtn id={p._id} /> */}
                     <Link href={`/updateProduct/${p._id}`}>
                       <button className="hover:scale-110 transition transform">
                         <HiOutlinePencilSquare
