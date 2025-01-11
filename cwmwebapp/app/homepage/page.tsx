@@ -10,7 +10,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <motion.section
         id="home"
-        className="relative bg-gradient-to-r from-blue-900 to-teal-700 text-white"
+        className="relative bg-gradient-to-r  from-blue-900 to-teal-700 text-white"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -34,26 +34,26 @@ export default function HomePage() {
             and excellence.
           </motion.p>
           <motion.div
-            className="mt-8 flex flex-col sm:flex-row justify-center gap-4"
+            className="mt-8 flex flex-col sm:flex-row  justify-center gap-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
             <Link
               href="/products"
-              className="px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg shadow hover:bg-gray-100 transition"
+              className="px-8 py-4 bg-white z-10 text-blue-900 font-semibold rounded-lg shadow  hover:bg-gray-100 transition"
             >
               View Products
             </Link>
-            <a
-              href="#about"
-              className="px-8 py-4 bg-blue-800 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition"
+            <Link
+              href="/about"
+              className="px-8 py-4 bg-blue-800 z-10 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition"
             >
               Learn More
-            </a>
+            </Link>
           </motion.div>
         </div>
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 z-0 opacity-20">
           <Image
             src="/hero.jpg" // Replace with your hero background image
             alt="Pharmacy Distribution"
@@ -158,7 +158,7 @@ export default function HomePage() {
           >
             {[
               {
-                image: "/images/pharmaceuticals.png",
+                image: "/images/pharmaceuticals.jpg",
                 title: "Pharmaceuticals",
               },
               {
