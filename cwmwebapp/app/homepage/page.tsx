@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-
+import { CiDeliveryTruck } from "react-icons/ci";
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -95,13 +95,13 @@ export default function HomePage() {
                   "Guaranteed timely delivery for all orders, nationwide.",
               },
               {
-                icon: "/images/partnership-icon.png",
+                icon: "/images/handshake.png",
                 title: "Trusted Partnerships",
                 description:
                   "Partnering with certified pharmaceutical manufacturers.",
               },
               {
-                icon: "/images/affordable-icon.png",
+                icon: "/images/best-price.png",
                 title: "Affordable Pricing",
                 description:
                   "Competitive prices with bulk discounts for distributors.",
@@ -158,7 +158,7 @@ export default function HomePage() {
           >
             {[
               {
-                image: "/images/pharmaceuticals.jpg",
+                image: "/images/pharmaceuticals.png",
                 title: "Pharmaceuticals",
               },
               {
