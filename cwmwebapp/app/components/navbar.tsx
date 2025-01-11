@@ -131,7 +131,7 @@ export default function Navbar(): JSX.Element {
             SERVICES
           </Link>
           <Link
-            href="/pages/About"
+            href="/About"
             className="hover:text-yellow-300 transition duration-300 font-semibold"
           >
             ABOUT
