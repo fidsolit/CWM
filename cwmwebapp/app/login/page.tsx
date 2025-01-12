@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../Globalredux/store";
 import { toast } from "react-toastify";
 import { IoShieldCheckmarkSharp } from "react-icons/io5";
+import { BsShieldFillExclamation } from "react-icons/bs";
 
 // import { signInWithEmailAndPassword } from "firebase/auth";
 // import { auth } from "@/app/firebase/config";
@@ -52,8 +53,19 @@ function LoginForm() {
           isAdmin: false,
         })
       );
-      router.push("/store");
+      toast.success("Login Successful!", {
+        icon: <IoShieldCheckmarkSharp className="w-6 h-6 text-green-500" />,
+        position: "top-right",
+        autoClose: 3000,
+      });
+
+      router.push("/products");
     } else {
+      toast.warning("Login failed", {
+        icon: <BsShieldFillExclamation className="w-6 h-6 text-red-500" />,
+        position: "top-right",
+        autoClose: 3000,
+      });
       setError("Invalid username or password");
     }
   };
