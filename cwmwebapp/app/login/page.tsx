@@ -9,6 +9,8 @@ import { login } from "../Globalredux/Features/authslice";
 import { useSelector, useDispatch } from "react-redux";
 
 import { RootState } from "../Globalredux/store";
+import { toast } from "react-toastify";
+import { IoShieldCheckmarkSharp } from "react-icons/io5";
 
 // import { signInWithEmailAndPassword } from "firebase/auth";
 // import { auth } from "@/app/firebase/config";
@@ -23,26 +25,31 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = async (event) => {
+  const handleLogin = async (event: any) => {
     event.preventDefault();
 
     // Here you can implement your login logic
     console.log("Logging in with:", username, password);
 
-    if (username === "admin" && password === "password") {
+    if (username === "admin" && password === "admin12344321") {
       dispatch(
         login({
           user: username,
           isAdmin: true,
         })
       );
-      alert("welcome admin ", username);
+      toast.success("Login Successful!", {
+        icon: <IoShieldCheckmarkSharp className="w-6 h-6 text-green-500" />,
+        position: "top-right",
+        autoClose: 3000,
+      });
       router.push("/admindashboard");
     }
     if (username === "user" && password === "user") {
       dispatch(
         login({
           user: username,
+          isAdmin: false,
         })
       );
       router.push("/store");

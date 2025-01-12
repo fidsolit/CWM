@@ -8,6 +8,7 @@ import { Providers } from "./Globalredux/provider";
 import Footer from "./components/footer";
 
 import { SessionProvider } from "next-auth/react";
+import Toastcomponent from "./components/toastcomponent";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default function RootLayout({
           {children}
 
           <Footer />
+          <Toastcomponent />
         </Providers>
       </body>
     </html>

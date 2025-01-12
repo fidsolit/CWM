@@ -1,5 +1,7 @@
-// pages/products.js
+"use client";
 import Image from "next/image";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Products() {
   const products = [
@@ -7,7 +9,7 @@ export default function Products() {
       id: 1,
       name: "NOVOSMART Drops 20ML",
       description:
-        "NOVOSMART Drops offer a premium daily dose of Omega 3 specifically formulated for children, ensuring optimum health and development. Our meticulously crafted Omega 3 is sourced from Europe, promising an unparalleled level of high quality and purity that you can confidently rely on. Each pack of NOVOSMART Drops comes with a dedicated, easy-to-use syringe for exact dosing, making it exceptionally simple and precise for parents to administer the daily required amount. The product is carefully packed in a sturdy glass bottle, ensuring that Omega 3 remains stable and well-protected from harmful environmental effects such as light and air exposure. You can trust Central West Shop to consistently provide the very best products for your child’s wellness needs, as we prioritize your child’s health and developmental milestones.",
+        "NOVOSMART Drops offer a premium daily dose of Omega 3 specifically formulated for children, ensuring optimum health and development. Our meticulously crafted Omega 3 is sourced from Europe, promising an unparalleled level of high quality and purity that you can confidently rely on.",
       price: "₱590.00",
       image: "/products/NOVOSMART.webp",
     },
@@ -23,7 +25,7 @@ export default function Products() {
       id: 3,
       name: "CENTRACID GEL",
       description:
-        "Generic Name: Aluminum Hydroxide+Magensium Hydroxide+Oxetacaine Centracid is an effective solution for managing the discomfort and symptoms associated with hyperacidity and related conditions, offering patients comprehensive and immdediate relief",
+        "Generic Name: Aluminum Hydroxide+Magensium Hydroxide+Oxetacaine Centracid is an effective solution for managing the discomfort and symptoms associated with hyperacidity and related conditions, offering patients comprehensive and immediate relief.",
       price: "₱850.00",
       image: "/products/centracid.webp",
     },
@@ -36,16 +38,21 @@ export default function Products() {
       image: "/products/MOMOR SPF 50 SUNSCREEN.webp",
     },
   ];
-  const handdleAddtocart = (ProductID: string, ProductName: string) => {
-    //code for add to cart
 
-    console.log(ProductID, ProductName, "added to cart");
+  const handleAddToCart = (product: any) => {
+    // Display toast notification with product name
+    toast.success(`${product.name} has been added to your cart!`, {
+      position: "bottom-left",
+      icon: "🛒",
+    });
+
+    console.log(product.id, product.name, "added to cart");
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
-      <div className=" bg-blue-950 text-white py-12">
+      <div className="bg-blue-950 text-white py-12">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-3xl font-bold">Explore Our Products</h1>
           <p className="mt-4 text-lg">
@@ -86,13 +93,13 @@ export default function Products() {
             <div className="p-4">
               <h3 className="text-lg font-semibold">{product.name}</h3>
               <p className="mt-2 text-gray-600 text-sm">
-                {/* {product.description} */}
+                {/* Product description can go here if needed */}
               </p>
               <div className="mt-4 flex items-center justify-between">
                 <span className="text-teal-600 font-bold">{product.price}</span>
                 <button
                   className="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-500"
-                  onClick={handdleAddtocart("1", "sample name")}
+                  onClick={() => handleAddToCart(product)}
                 >
                   Add to Cart
                 </button>
