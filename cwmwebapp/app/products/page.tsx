@@ -36,6 +36,11 @@ export default function Products() {
       image: "/products/MOMOR SPF 50 SUNSCREEN.webp",
     },
   ];
+  const handdleAddtocart = (ProductID: string, ProductName: string) => {
+    //code for add to cart
+
+    console.log(ProductID, ProductName, "added to cart");
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -85,7 +90,10 @@ export default function Products() {
               </p>
               <div className="mt-4 flex items-center justify-between">
                 <span className="text-teal-600 font-bold">{product.price}</span>
-                <button className="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-500">
+                <button
+                  className="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-500"
+                  onClick={handdleAddtocart("1", "sample name")}
+                >
                   Add to Cart
                 </button>
               </div>
