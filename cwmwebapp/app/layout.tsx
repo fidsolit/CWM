@@ -12,7 +12,7 @@ import Toastcomponent from "./components/toastcomponent";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CENTRAL WEST MARKETINGnpm ",
+  title: "CENTRAL WEST MARKETING",
   description: "FCODES IT SERVICES THAT YOU CAN TRUST",
 };
 
@@ -29,7 +29,18 @@ export default function RootLayout({
           {children}
 
           <Footer />
-          <Toastcomponent />
+          <Toastcomponent
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </Providers>
       </body>
     </html>

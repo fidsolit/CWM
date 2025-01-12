@@ -45,8 +45,7 @@ function LoginForm() {
         autoClose: 3000,
       });
       router.push("/admindashboard");
-    }
-    if (username === "user" && password === "user") {
+    } else if (username === "user" && password === "user") {
       dispatch(
         login({
           user: username,
