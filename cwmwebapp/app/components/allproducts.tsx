@@ -11,7 +11,10 @@ interface Product {
   _id: string;
   brand: string;
   description: string;
-  sellingprice: number;
+  unitPrice: string;
+  sellingPrice: number;
+  name: string;
+  availableQty: string;
 }
 
 // Define a type for the API response
@@ -52,6 +55,7 @@ export default function AllProduct() {
       const result = await getallProducts();
       if (result) {
         setProducts(result.products);
+        console.log("this is all the products", products);
       }
     };
     fetchProducts();
@@ -108,7 +112,11 @@ export default function AllProduct() {
               <th className="px-6 py-3 text-left font-medium">Select</th>
               <th className="px-6 py-3 text-left font-medium">BRAND</th>
               <th className="px-6 py-3 text-left font-medium">Description</th>
+              <th className="px-6 py-3 text-left font-medium">Unit Price</th>
               <th className="px-6 py-3 text-left font-medium">Price</th>
+              <th className="px-6 py-3 text-left font-medium">
+                Available Quantity
+              </th>
               <th className="px-6 py-3 text-left font-medium">ACTION</th>
             </tr>
           </thead>
@@ -131,14 +139,17 @@ export default function AllProduct() {
                         className="w-full h-full object-cover rounded-full"
                       />
                     </div>
-                    <div className="font-semibold text-gray-800">{p.brand}</div>
+                    <div className="font-semibold text-gray-800">{p.name}</div>
                   </div>
                 </td>
+
                 <td className="px-6 py-4 text-gray-700">{p.description}</td>
+                <td className="px-6 py-4 text-gray-700">{p.unitPrice}</td>
                 <td className="px-6 py-4 text-green-500 font-semibold">
                   {/* php{p.sellingprice.toFixed(2)} */}₱{" "}
-                  {Number(products[0].sellingprice).toLocaleString()}
+                  {Number(products[0].sellingPrice).toLocaleString()}
                 </td>
+                <td className="px-6 py-4 text-gray-700">{p.availableQty}</td>
                 <td className="px-6 py-4">
                   <div className="flex items-center space-x-4">
                     {/* <RemoveBtn id={p._id} /> */}

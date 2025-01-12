@@ -10,10 +10,12 @@ export default function AdminDashboard() {
   const authState = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
-  if (authState.isAdmin === false) {
-    router.push("/products");
-    return null;
-  }
+  // if (authState.isAdmin === false) {
+  //   router.push("/products");
+  //   return null;
+  // }
+
+  //temporary for code fede
 
   return (
     <>

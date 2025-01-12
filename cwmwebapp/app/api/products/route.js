@@ -2,50 +2,50 @@ import connectMongoDB from "../../../libs/mongodb";
 import Product from "../../../models/product";
 import { NextResponse } from "next/server";
 
-//insert into table in sql
+// Insert into table in SQL
 export async function POST(request) {
   const {
+    name,
     brand,
     description,
-    sellingprice,
-    unitprice,
-    availableqty,
+    category,
+    sellingPrice,
+    unitPrice,
+    availableQty,
+    dosageForm,
+    strength,
     sku,
-    ram,
-    Videocard,
-    storage,
-    color,
-    inches,
-    Freebies,
-    Warranty,
+    expirationDate,
+    batchNumber,
+    storageConditions,
   } = await request.json();
   await connectMongoDB();
   await Product.create({
+    name,
     brand,
     description,
-    sellingprice,
-    unitprice,
-    availableqty,
+    category,
+    sellingPrice,
+    unitPrice,
+    availableQty,
+    dosageForm,
+    strength,
     sku,
-    ram,
-    Videocard,
-    storage,
-    color,
-    inches,
-    Freebies,
-    Warranty,
+    expirationDate,
+    batchNumber,
+    storageConditions,
   });
   return NextResponse.json({ message: "Product Created" }, { status: 201 });
 }
 
-//select * from table in SQL
+// Select * from table in SQL
 export async function GET() {
   await connectMongoDB();
   const products = await Product.find();
   return NextResponse.json({ products });
 }
 
-//delete * from where column name = variable/variable request = in sql
+// Delete * from table where column name = variable (in SQL)
 export async function DELETE(request) {
   const id = request.nextUrl.searchParams.get("id");
   await connectMongoDB();
