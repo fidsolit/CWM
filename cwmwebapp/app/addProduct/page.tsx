@@ -44,7 +44,7 @@ export default function AddProduct() {
     router.push("/products");
     return null;
   }
-
+  const categories = ["Antibiotics", "Painkillers", "Vitamins", "Supplements"];
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setProductData({
       ...productData,

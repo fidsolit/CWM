@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
-import { Providers } from "./Globalredux/provider";
-// import { Provider } from "react-redux";
-// import { store } from "./redux/store";
+import { Providers } from "./Globalredux/provider"; //old provider by fede
+
+// import { Providers } from "@/Store/Provider"; new provider
+
 import Footer from "./components/footer";
 
 import { SessionProvider } from "next-auth/react";
@@ -13,7 +14,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "CENTRAL WEST MARKETING",
-  description: "FCODES IT SERVICES THAT YOU CAN TRUST",
+  description: "",
 };
 
 export default function RootLayout({
@@ -28,7 +29,7 @@ export default function RootLayout({
           <Navbar />
           {children}
 
-          <Footer />
+          {/* <Footer /> */}
           <Toastcomponent
             position="top-right"
             autoClose={3000}
