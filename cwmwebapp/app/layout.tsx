@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
-import { Providers } from "./Globalredux/provider"; //old provider by fede
+// import { Providers } from "./Globalredux/provider"; //old provider by fede
 
-// import { Providers } from "@/Store/Provider"; new provider
+import { Providers } from "@/Store/Provider";
 
 import Footer from "./components/footer";
 
