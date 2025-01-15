@@ -3,7 +3,8 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { storage } from "@/utils/Firebase";
+// import { storage } from "@/utils/Firebase";
+import {storage} from "../../../utils/Firebase"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { ToastContainer, toast } from "react-toastify";
 // import { TailSpin } from 'react-loader-spinner';
