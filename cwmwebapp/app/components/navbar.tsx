@@ -372,15 +372,38 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { RootState } from "@/Store/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaCartArrowDown } from "react-icons/fa";
+import { setUserData } from "@/utils/UserDataSlice";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { MdFavorite } from "react-icons/md";
+import { any } from "joi";
 
 export default function Navbar() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [Scrolled, setScrolled] = useState(false);
   const user = useSelector((state: RootState) => state.User.userData);
+
+  type User = {
+    email: string;
+    name: string;
+    _id: string;
+    role: string;
+  };
+
+  const userJson = localStorage.getItem("user");
+  useEffect(() => {
+    if (userJson) {
+      // Parse the JSON string
+      const user: User = JSON.parse(userJson);
+      const userData = localStorage.getItem("user");
+      const userDataString = typeof userData === "string" ? userData : "";
+      dispatch(setUserData(JSON.parse(userDataString)));
+    } else {
+      console.log("No user data found in localStorage.");
+    }
+  }, []);
 
   useEffect(() => {
     window.onscroll = () => {
@@ -462,7 +485,7 @@ export default function Navbar() {
             <Link href={"/"}>Homepage</Link>
           </li>
           <li className="hover:bg-gray-100 rounded-lg">
-            <Link href={"/Products"}>Shop</Link>
+            <Link href={"/products"}>Shop</Link>
           </li>
           <li className="hover:bg-gray-100 rounded-lg">
             <Link href={"/order/view-orders"}>My Orders</Link>
