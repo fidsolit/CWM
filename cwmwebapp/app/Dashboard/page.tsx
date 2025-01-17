@@ -87,7 +87,7 @@ export default function Dashboard() {
   ]);
 
   return (
-    <div className="w-full h-screen flex  bg-gray-50 overflow-hidden">
+    <div className="w-full h-screen flex md:mt-20  bg-gray-50 overflow-hidden">
       <AdminSidebar />
       <div className="w-full h-full ">
         <AdminNavbar />
