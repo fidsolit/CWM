@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 // import { storage } from "@/utils/Firebase";
-import {storage} from "../../../utils/Firebase"
+import { storage } from "@/utils/Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { ToastContainer, toast } from "react-toastify";
 // import { TailSpin } from 'react-loader-spinner';
@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/Store/store";
 import Cookies from "js-cookie";
 import { useSWRConfig } from "swr";
-// import { add_new_product } from "../Services/Admin/product";
+// import { add_new_product } from '../Services/Admin/product';
 import { add_new_product } from "@/app/Services/Admin/product";
 
 type Inputs = {
@@ -195,7 +195,7 @@ export default function AddProduct() {
                             wrapperClass=""
                             visible={true}
                         /> */}
-          <h6>Loading...</h6>
+          <h6>Loading..</h6>
           <p className="text-sm mt-2 font-semibold text-orange-500">
             Adding Product Hold Tight ....
           </p>
@@ -339,7 +339,7 @@ export default function AddProduct() {
         </div>
       )}
 
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 }

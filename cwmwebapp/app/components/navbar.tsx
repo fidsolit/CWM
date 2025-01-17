@@ -202,6 +202,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
+// import { RootState } from "@/Store/store";
 import { RootState } from "@/Store/store";
 import { FaCartArrowDown } from "react-icons/fa";
 import { CiDeliveryTruck } from "react-icons/ci";
