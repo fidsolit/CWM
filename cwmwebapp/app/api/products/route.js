@@ -1,5 +1,5 @@
 import connectMongoDB from "../../../libs/mongodb";
-import Product from "../../../models/product";
+import Product from "../../../models/Product";
 import { NextResponse } from "next/server";
 
 // Insert into table in SQL

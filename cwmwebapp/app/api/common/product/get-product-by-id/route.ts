@@ -2,7 +2,7 @@ import connectDB from "@/DB/connectDB";
 import { NextResponse } from "next/server";
 // import Product from "@/model/Product";
 // import Category from "@/model/Category";
-import Product from "@/models/product";
+import Product from "@/models/Product";
 import Category from "@/models/Category";
 
 export const dynamic = "force-dynamic";

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import Order from "@/models/Order";
 import AuthCheck from "@/middleware/AuthCheck";
 // import Product from "@/models/Product";
-import Product from "@/models/product";
+import Product from "@/models/Product";
 import User from "@/models/User";
 
 export const dynamic = "force-dynamic";

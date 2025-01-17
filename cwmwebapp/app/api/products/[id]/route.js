@@ -2,6 +2,8 @@ import connectMongoDB from "@/libs/mongodb";
 import Product from "@/models/product";
 import { NextResponse } from "next/server";
 
+///this is the old codes
+
 export async function PUT(request, { params }) {
   const { id } = params;
   const { newbrand: brand, newDescription: description } = await request.json();

@@ -2,7 +2,7 @@ import connectDB from "@/DB/connectDB";
 
 import { NextResponse } from "next/server";
 // import Product from "@/model/Product";
-import Product from "@/models/product";
+import Product from "@/models/Product";
 // import Category from "@/model/Category";
 import Category from "@/models/Category";
 
@@ -15,7 +15,7 @@ export async function GET(req: Request) {
 
     const getData = await Product.find({}).populate(
       "productCategory",
-      " categoryName categorySlug _id"
+      "categoryName categorySlug _id"
     );
     if (getData) {
       return NextResponse.json({ success: true, data: getData });

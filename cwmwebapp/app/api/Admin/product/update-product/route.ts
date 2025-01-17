@@ -1,7 +1,7 @@
 import connectDB from "@/DB/connectDB";
 import AuthCheck from "@/middleware/AuthCheck";
 import { NextResponse } from "next/server";
-import Product from "@/models/product";
+import Product from "@/models/Product";
 
 export async function PUT(req: Request) {
   try {
