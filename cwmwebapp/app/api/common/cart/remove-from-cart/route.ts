@@ -23,7 +23,7 @@ export async function DELETE(req: Request) {
       if (deleteData) {
         return NextResponse.json({
           success: true,
-          message: "cart Item  Deleted successfully!",
+          message: "cart Item removed successfully!",
         });
       } else {
         return NextResponse.json({
