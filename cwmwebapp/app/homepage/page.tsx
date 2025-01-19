@@ -46,7 +46,7 @@ export default function HomePage() {
               View Products
             </Link>
             <Link
-              href="/about"
+              href="/About"
               className="px-8 py-4 bg-blue-800 z-10 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition"
             >
               Learn More

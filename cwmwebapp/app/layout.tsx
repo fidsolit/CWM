@@ -10,6 +10,8 @@ import Footer from "./components/footer";
 
 import { SessionProvider } from "next-auth/react";
 import Toastcomponent from "./components/toastcomponent";
+import TopCategories from "./components/TopCategories";
+import FeaturedProduct from "./components/FeaturedProduct";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -30,7 +32,7 @@ export default function RootLayout({
           {children}
 
           {/* <Footer /> */}
-          <Toastcomponent
+          {/* <Toastcomponent
             position="top-right"
             autoClose={3000}
             hideProgressBar={false}
@@ -41,7 +43,10 @@ export default function RootLayout({
             draggable
             pauseOnHover
             theme="light"
-          />
+          /> */}
+
+          <TopCategories />
+          <FeaturedProduct />
         </Providers>
       </body>
     </html>

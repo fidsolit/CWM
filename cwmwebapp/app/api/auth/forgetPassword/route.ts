@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       success: false,
       message: error.details[0].message.replace(/['"]+/g, ""),
     });
-  if (email === "mrmoiz.dev@gmail.com")
+  if (email === "fidem0411@gmail.com1")
     return NextResponse.json({
       success: true,
       message: "Password Updated Successfully",
