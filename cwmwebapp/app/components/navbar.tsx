@@ -384,6 +384,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const [Scrolled, setScrolled] = useState(false);
   const user = useSelector((state: RootState) => state.User.userData);
+  const [isAdmin, setisAdmin] = useState(false);
 
   type User = {
     email: string;
@@ -392,14 +393,17 @@ export default function Navbar() {
     role: string;
   };
 
-  const userJson = localStorage.getItem("user");
   useEffect(() => {
+    const userJson: any = localStorage.getItem("user");
     if (userJson) {
       // Parse the JSON string
       const user: User = JSON.parse(userJson);
       const userData = localStorage.getItem("user");
       const userDataString = typeof userData === "string" ? userData : "";
       dispatch(setUserData(JSON.parse(userDataString)));
+      if (user.role === "admin") {
+        setisAdmin(true);
+      }
     } else {
       console.log("No user data found in localStorage.");
     }
@@ -410,6 +414,7 @@ export default function Navbar() {
       setScrolled(window.pageYOffset < 30 ? false : true);
       return () => (window.onscroll = null);
     };
+    console.log("this is the user data from useeffect2", user);
   }, [Scrolled]);
 
   const handleLogout = () => {
@@ -460,9 +465,11 @@ export default function Navbar() {
             <li>
               <Link href={"/order/view-orders"}>My Orders</Link>
             </li>
-            <li>
-              <Link href={"/Dashboard"}>Dashboard</Link>
-            </li>
+            {isAdmin ? (
+              <li>
+                <Link href={"/Dashboard"}>Dashboard</Link>
+              </li>
+            ) : null}
           </ul>
         </div>
         {/* Logo Section */}
@@ -487,12 +494,17 @@ export default function Navbar() {
           <li className="hover:bg-gray-100 rounded-lg">
             <Link href={"/products"}>Shop</Link>
           </li>
-          <li className="hover:bg-gray-100 rounded-lg">
-            <Link href={"/order/view-orders"}>My Orders</Link>
-          </li>
-          <li className="hover:bg-gray-100 rounded-lg">
-            <Link href={"/Dashboard"}>Dashboard</Link>
-          </li>
+
+          {user ? (
+            <li className="hover:bg-gray-100 rounded-lg">
+              <Link href={"/order/view-orders"}>My Orders</Link>
+            </li>
+          ) : null}
+          {isAdmin ? (
+            <li className="hover:bg-gray-100 rounded-lg">
+              <Link href={"/Dashboard"}>Dashboard</Link>
+            </li>
+          ) : null}
         </ul>
       </div>
 
