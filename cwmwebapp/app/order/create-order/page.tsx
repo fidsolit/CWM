@@ -263,7 +263,7 @@ export default function Page() {
                 {" "}
                 Total Order Price{" "}
                 <span className="text-xl font-extrabold">
-                  Php {totalPrice + 600}
+                  Php {totalPrice + 100}
                 </span>{" "}
               </h1>
             </div>

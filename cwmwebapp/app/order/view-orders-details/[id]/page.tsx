@@ -170,7 +170,7 @@ export default function Page({
                   <div className="flex  px-2 py-1 flex-col items-start justify-start">
                     <h1 className="my-2">{item?.product?.productName}</h1>
                     <p className="text-sm my-2 font-semibold">
-                      Rs {item?.product?.productPrice}
+                      Php {item?.product?.productPrice}
                     </p>
                     <p className="text-sm  my-2">
                       Quantity :{" "}
@@ -221,16 +221,16 @@ export default function Page({
               <h1 className="text-xl font-semibold ">Other Details</h1>
               <div className="flex py-2 w-full text-sm justify-between">
                 <p>Items Price</p>
-                <p className="font-semibold">Rs {orderData?.itemsPrice}</p>
+                <p className="font-semibold">Php {orderData?.itemsPrice}</p>
               </div>
 
               <div className="flex py-2 w-full text-sm justify-between">
                 <p>Tax Price</p>
-                <p className="font-semibold">Rs {orderData?.taxPrice}</p>
+                <p className="font-semibold">Php {orderData?.taxPrice}</p>
               </div>
               <div className="flex py-2 w-full text-sm justify-between">
                 <p>Total Price</p>
-                <p className="font-semibold">Rs {orderData?.totalPrice}</p>
+                <p className="font-semibold">Php {orderData?.totalPrice}</p>
               </div>
               <div className="flex py-2 w-full text-sm justify-between">
                 <p>Is Paid</p>

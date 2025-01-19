@@ -126,7 +126,7 @@ export default function CartCard({ productID, userID, _id, quantity }: Data) {
         height={150}
         className="rounded"
       />
-      <h3 className="font-semibold text-lg">Rs {productID?.productPrice}</h3>
+      <h3 className="font-semibold text-lg">Php {productID?.productPrice}</h3>
       <div className="flex  justify-center items-center">
         <button
           onClick={handleIncrement}
