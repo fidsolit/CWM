@@ -64,7 +64,7 @@ export default function ForgetPassword() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <section className="bg-gray-50  text-center">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
           <div className="w-full p-6 bg-white rounded-lg shadow  md:mt-0 sm:max-w-md  sm:p-8">
