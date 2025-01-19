@@ -10,7 +10,7 @@ const BookmarkSchema = new mongoose.Schema(
     },
     productID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Products",
+      ref: "Product",
     },
   },
   { timestamps: true }

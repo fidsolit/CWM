@@ -48,7 +48,7 @@ export async function GET(req: Request) {
     return NextResponse.json({
       status: 500,
       success: false,
-      message: "Something went wrong. Please try again!",
+      message: "Something went wrong. Please try again! fede here",
     });
   }
 }

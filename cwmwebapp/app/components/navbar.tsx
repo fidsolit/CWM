@@ -423,6 +423,12 @@ export default function Navbar() {
     location.reload();
   };
 
+  useEffect(() => {
+    if (!Cookies.get("token") || user === null) {
+      router.push("/");
+    }
+  }, [dispatch, router]);
+
   return (
     <div
       className={`navbar ${

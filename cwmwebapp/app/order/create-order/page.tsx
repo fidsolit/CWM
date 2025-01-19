@@ -81,6 +81,7 @@ export default function Page() {
     const cartData = await get_all_cart_Items(user?._id);
     if (cartData?.success) {
       dispatch(setCart(cartData?.data));
+      toast.success(cartData?.message);
     } else {
       toast.error(cartData?.message);
     }
@@ -243,18 +244,18 @@ export default function Page() {
                 {" "}
                 Original Price{" "}
                 <span className="text-xl font-extrabold">
-                  Rs {totalPrice || 0}
+                  Php {totalPrice || 0}
                 </span>{" "}
               </h1>
               <h1 className="py-2 tracking-widest mb-2  border-b px-6 border-orange-600 text-sm  flex flex-col ">
                 {" "}
                 Shipping Price{" "}
-                <span className="text-xl font-extrabold">Rs {500}</span>{" "}
+                <span className="text-xl font-extrabold">Php{500}</span>{" "}
               </h1>
               <h1 className="py-2 tracking-widest mb-2  border-b px-6 border-orange-600 text-sm  flex flex-col ">
                 {" "}
                 tax Price{" "}
-                <span className="text-xl font-extrabold">Rs {100}</span>{" "}
+                <span className="text-xl font-extrabold">Php {100}</span>{" "}
               </h1>
             </div>
             <div className="w-full  py-2 my-2 flex justify-end ">
@@ -262,7 +263,7 @@ export default function Page() {
                 {" "}
                 Total Order Price{" "}
                 <span className="text-xl font-extrabold">
-                  Rs {totalPrice + 600}
+                  Php {totalPrice + 600}
                 </span>{" "}
               </h1>
             </div>
