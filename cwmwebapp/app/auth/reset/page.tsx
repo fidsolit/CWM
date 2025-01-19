@@ -158,6 +158,7 @@ export default function ForgetPassword() {
                     wrapperClass=""
                     visible={true}
                   /> */}
+                  <h6>Loading..</h6>
                 </button>
               ) : (
                 <button
