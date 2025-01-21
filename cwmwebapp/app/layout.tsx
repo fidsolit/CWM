@@ -44,9 +44,8 @@ export default function RootLayout({
             pauseOnHover
             theme="light"
           /> */}
-
-          <TopCategories />
           <FeaturedProduct />
+          <TopCategories />
         </Providers>
       </body>
     </html>

@@ -2,8 +2,38 @@
 import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProductCard from "../components/ProductCard";
+
+import { RootState } from "@/Store/store";
+import { useSelector } from "react-redux";
+import FeaturedProduct from "../components/FeaturedProduct";
 
 export default function Products() {
+  const prodData = useSelector((state: RootState) => state.Admin.product);
+  const prodLoading = useSelector(
+    (state: RootState) => state.Admin.productLoading
+  );
+
+  type ProductData = {
+    productName: string;
+    productImage: string;
+    productSlug: string;
+    productPrice: Number;
+    productFeatured: Boolean;
+    productCategory: {
+      categoryName: string;
+      _id: string;
+      categoryDescription: string;
+    };
+    _id: string;
+  };
+
+  const FeaturedProducts = prodData?.filter((prod: ProductData) => {
+    if (prod?.productFeatured) {
+      return prod;
+    }
+  });
+  const filteredProducts = FeaturedProducts?.slice(0, 9);
   const products = [
     {
       id: 1,
@@ -50,7 +80,7 @@ export default function Products() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen md: mt-10 bg-gray-50">
       {/* Header Section */}
       <div className="bg-blue-950 text-white py-12">
         <div className="container mx-auto px-6 text-center">
@@ -77,36 +107,28 @@ export default function Products() {
       </div>
 
       {/* Products Grid */}
+      {/* <FeaturedProduct /> */}
       <div className="container mx-auto px-6 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="bg-white shadow rounded overflow-hidden hover:shadow-lg transition-shadow"
-          >
-            <Image
-              src={product.image}
-              alt={product.name}
-              width={500}
-              height={300}
-              className="object-cover w-full"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">{product.name}</h3>
-              <p className="mt-2 text-gray-600 text-sm">
-                {/* Product description can go here if needed */}
-              </p>
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-teal-600 font-bold">{product.price}</span>
-                <button
-                  className="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-500"
-                  onClick={() => handleAddToCart(product)}
-                >
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
+        {filteredProducts?.length < 1 ? (
+          <h1 className="text-2xl font-semibold text-gray-500">
+            No available Products
+          </h1>
+        ) : (
+          filteredProducts?.map((item: ProductData) => {
+            return (
+              <ProductCard
+                productName={item?.productName}
+                productPrice={item?.productPrice}
+                productFeatured={item?.productFeatured}
+                productImage={item?.productImage}
+                productCategory={item?.productCategory}
+                productSlug={item?.productSlug}
+                _id={item?._id}
+                key={item?._id}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );

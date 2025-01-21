@@ -171,7 +171,7 @@ export default function Register() {
                 ) : (
                   <button
                     type="submit"
-                    className="w-full text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   >
                     Sign up
                   </button>
@@ -181,7 +181,7 @@ export default function Register() {
                   Already have an account{" "}
                   <Link
                     href="/auth/login"
-                    className="font-medium text-orange-600 hover:underline "
+                    className="font-medium text-blue-600 hover:underline "
                   >
                     Sign In
                   </Link>

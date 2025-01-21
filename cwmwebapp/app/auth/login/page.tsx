@@ -134,7 +134,7 @@ export default function Login() {
                   </div>
                   <Link
                     href="/auth/reset"
-                    className="text-sm font-medium text-orange-600 hover:underline "
+                    className="text-sm font-medium  text-blue-600 hover:underline "
                   >
                     Forgot password?
                   </Link>
@@ -142,7 +142,7 @@ export default function Login() {
                 {loading ? (
                   <button
                     type="button"
-                    className="w-full flex items-center justify-center text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
+                    className="w-full flex items-center justify-center text-white bg-blue-600  hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
                   >
                     {/* <TailSpin
                                             height="20"
@@ -159,7 +159,7 @@ export default function Login() {
                 ) : (
                   <button
                     type="submit"
-                    className="w-full text-white bg-orange-600 da hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
+                    className="w-full  text-blue-600  hover:text-blue-300 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
                   >
                     Sign in
                   </button>
@@ -169,7 +169,7 @@ export default function Login() {
                   Don’t have an account yet?{" "}
                   <Link
                     href={"/auth/register"}
-                    className="font-medium text-orange-600 hover:underline "
+                    className="font-medium text-blue-600 hover:underline "
                   >
                     Sign up
                   </Link>

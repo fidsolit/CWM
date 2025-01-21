@@ -19,25 +19,23 @@
 // };
 
 // export default nextConfig;
-/**  @type {import('next').NextConfig} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true, // Recommended for React apps
   experimental: {
-    appDir: true, // Enables the new app directory structure
-    serverComponentsExternalPackages: ["mongoose"], // Allows using "mongoose" in server components
-    typedRoutes: true, // Experimental feature for typed routes
+    typedRoutes: true, // Ensure your Next.js version supports this
   },
   webpack(config: any) {
-    config.experiments = { ...config.experiments, topLevelAwait: true }; // Enables top-level `await` in modules
+    config.experiments = { ...config.experiments, topLevelAwait: true }; // Enables top-level `await` usage
     return config;
   },
   images: {
-    domains: ["firebasestorage.googleapis.com"], // Add Firebase Storage domain to allow optimized image loading
+    domains: ["firebasestorage.googleapis.com"], // Firebase Storage domain
     remotePatterns: [
       {
-        protocol: "https", // Protocol used by Firebase Storage
-        hostname: "firebasestorage.googleapis.com", // Hostname of Firebase Storage
-        port: "", // Leave empty (Firebase doesn't use custom ports)
-        pathname: "/v0/b/**", // Match Firebase Storage path format
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        pathname: "/v0/b/**", // Match Firebase Storage URLs
       },
     ],
   },
