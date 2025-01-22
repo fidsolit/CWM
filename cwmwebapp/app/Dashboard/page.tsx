@@ -44,8 +44,8 @@ export default function Dashboard() {
     );
     if (
       !Cookies.get("token") ||
-      user?.role !== "admin" ||
-      user?.email !== "fidem0411@gmail.com"
+      user?.role !== "admin"
+      //|| user?.email !== "fidem0411@gmail.com"
     ) {
       Router.push("/");
     }

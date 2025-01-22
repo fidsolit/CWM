@@ -32,7 +32,7 @@ export default function RootLayout({
           {children}
 
           {/* <Footer /> */}
-          {/* <Toastcomponent
+          <Toastcomponent
             position="top-right"
             autoClose={3000}
             hideProgressBar={false}
@@ -43,7 +43,7 @@ export default function RootLayout({
             draggable
             pauseOnHover
             theme="light"
-          /> */}
+          />
           <FeaturedProduct />
           <TopCategories />
         </Providers>
