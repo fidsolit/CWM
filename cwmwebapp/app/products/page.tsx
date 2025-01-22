@@ -7,8 +7,10 @@ import ProductCard from "../components/ProductCard";
 import { RootState } from "@/Store/store";
 import { useSelector } from "react-redux";
 import FeaturedProduct from "../components/FeaturedProduct";
+import { useRouter } from "next/navigation";
 
 export default function Products() {
+  const router = useRouter();
   const prodData = useSelector((state: RootState) => state.Admin.product);
   const prodLoading = useSelector(
     (state: RootState) => state.Admin.productLoading
@@ -129,6 +131,40 @@ export default function Products() {
             );
           })
         )}
+        {filteredProducts.map((product) => (
+          <div
+            key={product._id}
+            className="bg-white shadow rounded overflow-hidden hover:shadow-lg transition-shadow"
+            onClick={() =>
+              router.push(`/product/product-detail/${product._id}`)
+            }
+          >
+            <Image
+              src={product.productImage}
+              alt={product.productName}
+              width={500}
+              height={300}
+              className="object-cover w-full"
+            />
+            <div className="p-4">
+              <h3 className="text-lg font-semibold">{product.productName}</h3>
+              <p className="mt-2 text-gray-600 text-sm">
+                {/* Product description can go here if needed */}
+              </p>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="text-teal-600 font-bold">
+                  {product.productPrice}
+                </span>
+                <button
+                  className="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-500"
+                  onClick={() => handleAddToCart(product)}
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

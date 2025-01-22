@@ -365,57 +365,268 @@
 //   );
 // }
 
+//my second code work but have redundant
+
+// "use client";
+
+// import React, { useEffect, useState } from "react";
+// import Link from "next/link";
+// import { useRouter } from "next/navigation";
+// import Cookies from "js-cookie";
+// import { RootState } from "@/Store/store";
+// import { useDispatch, useSelector } from "react-redux";
+// import { FaCartArrowDown } from "react-icons/fa";
+// import { setUserData } from "@/utils/UserDataSlice";
+// import { CiDeliveryTruck } from "react-icons/ci";
+// import { MdFavorite } from "react-icons/md";
+// import { any } from "joi";
+
+// export default function Navbar() {
+//   const router = useRouter();
+//   const dispatch = useDispatch();
+//   const [Scrolled, setScrolled] = useState(false);
+//   const user = useSelector((state: RootState) => state.User.userData);
+//   const [isAdmin, setisAdmin] = useState(false);
+
+//   type User = {
+//     email: string;
+//     name: string;
+//     _id: string;
+//     role: string;
+//   };
+
+//   useEffect(() => {
+//     const userJson: any = localStorage.getItem("user");
+//     if (userJson) {
+//       // Parse the JSON string
+//       const user: User = JSON.parse(userJson);
+//       const userData = localStorage.getItem("user");
+//       const userDataString = typeof userData === "string" ? userData : "";
+//       dispatch(setUserData(JSON.parse(userDataString)));
+//       if (user.role === "admin") {
+//         setisAdmin(true);
+//       }
+//     } else {
+//       // console.log("No user data found in localStorage.");
+//     }
+//   }, [dispatch, router]);
+
+//   useEffect(() => {
+//     window.onscroll = () => {
+//       setScrolled(window.pageYOffset < 30 ? false : true);
+//       return () => (window.onscroll = null);
+//     };
+//     // console.log("this is the user data from useeffect2", user);
+//   }, [Scrolled]);
+
+//   useEffect(() => {
+//     const navigationEntries = performance.getEntriesByType("navigation");
+
+//     // Check if we have a valid navigation entry
+//     if (
+//       navigationEntries.length > 0 &&
+//       (navigationEntries[0] as PerformanceNavigationTiming).type === "reload"
+//     ) {
+//       console.log("The browser has refreshed! by fede");
+//       const userJson: any = localStorage.getItem("user");
+//       if (userJson) {
+//         // Parse the JSON string
+//         const user: User = JSON.parse(userJson);
+//         const userData = localStorage.getItem("user");
+//         const userDataString = typeof userData === "string" ? userData : "";
+//         dispatch(setUserData(JSON.parse(userDataString)));
+//         if (user.role === "admin") {
+//           setisAdmin(true);
+//         }
+//       } else {
+//         // console.log("No user data found in localStorage.");
+//       }
+//     }
+//   }, []);
+
+//   const handleLogout = () => {
+//     Cookies.remove("token");
+//     localStorage.clear();
+//     location.reload();
+//   };
+
+//   useEffect(() => {
+//     if (!Cookies.get("token") || user === null) {
+//       router.push("/");
+//     }
+//   }, [dispatch, router]);
+
+//   return (
+//     <div
+//       className={`navbar ${
+//         Scrolled ? "bg-white/95 shadow-md" : "bg-white"
+//       } fixed top-0 left-0 w-full z-50`}
+//     >
+//       {/* Start Section */}
+//       <div className="navbar-start flex items-center">
+//         {/* Dropdown for Small Screens */}
+//         <div className="dropdown">
+//           <label
+//             tabIndex={0}
+//             className="btn btn-active text-black btn-circle lg:hidden"
+//           >
+//             <svg
+//               xmlns="http://www.w3.org/2000/svg"
+//               className="h-5 w-5"
+//               fill="none"
+//               viewBox="0 0 24 24"
+//               stroke="currentColor"
+//             >
+//               <path
+//                 strokeLinecap="round"
+//                 strokeLinejoin="round"
+//                 strokeWidth="2"
+//                 d="M4 6h16M4 12h16M4 18h7"
+//               />
+//             </svg>
+//           </label>
+//           <ul
+//             tabIndex={0}
+//             className="menu menu-compact dropdown-content mt-3 p-2 shadow text-black bg-gray-50 rounded-box w-52"
+//           >
+//             <li>
+//               <Link href={"/"}>Homepage</Link>
+//             </li>
+//             <li>
+//               <Link href={"/"}>Shop</Link>
+//             </li>
+//             <li>
+//               <Link href={"/order/view-orders"}>My Orders</Link>
+//             </li>
+//             {isAdmin ? (
+//               <li>
+//                 <Link href={"/Dashboard"}>Dashboard</Link>
+//               </li>
+//             ) : null}
+//           </ul>
+//         </div>
+//         {/* Logo Section */}
+//         <h1 className="text-black font-bold text-xl hidden lg:block">
+//           {/* Replace with your logo */}
+//           <Link href="/">
+//             <img
+//               src="/LOGO_TRANSPARENT.avif"
+//               alt="Logo CWM"
+//               className="h-10 w-auto"
+//             />
+//           </Link>
+//         </h1>
+//       </div>
+
+//       {/* Center Section */}
+//       <div className="navbar-center hidden lg:flex">
+//         <ul className="menu menu-horizontal px-1">
+//           <li className="hover:bg-gray-100 rounded-lg">
+//             <Link href={"/"}>Homepage</Link>
+//           </li>
+//           <li className="hover:bg-gray-100 rounded-lg">
+//             <Link href={"/products"}>Shop</Link>
+//           </li>
+
+//           {user ? (
+//             <li className="hover:bg-gray-100 rounded-lg">
+//               <Link href={"/order/view-orders"}>My Orders</Link>
+//             </li>
+//           ) : null}
+//           {isAdmin ? (
+//             <li className="hover:bg-gray-100 rounded-lg">
+//               <Link href={"/Dashboard"}>Dashboard</Link>
+//             </li>
+//           ) : null}
+//         </ul>
+//       </div>
+
+//       {/* End Section */}
+//       <div className="navbar-end">
+//         <div className="flex items-center space-x-2">
+//           {user ? (
+//             <div className="flex items-center">
+//               <button onClick={handleLogout} className="btn text-black mx-2">
+//                 Logout
+//               </button>
+//               <button
+//                 onClick={() => router.push("/order/create-order")}
+//                 className="btn btn-circle mx-2"
+//               >
+//                 <FaCartArrowDown className="text-black text-xl" />
+//               </button>
+//               <button
+//                 onClick={() => router.push("/bookmark")}
+//                 className="btn btn-circle mx-2"
+//               >
+//                 <MdFavorite className="text-black text-xl" />
+//               </button>
+//               <button
+//                 onClick={() => router.push("/order/view-orders")}
+//                 className="btn btn-circle mx-2"
+//               >
+//                 <CiDeliveryTruck className="text-black text-xl" />
+//               </button>
+//             </div>
+//           ) : (
+//             <button
+//               onClick={() => router.push("/auth/login")}
+//               className="btn text-black mx-2"
+//             >
+//               Login
+//             </button>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+//third code
+
 "use client";
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import { RootState } from "@/Store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { FaCartArrowDown } from "react-icons/fa";
-import { setUserData } from "@/utils/UserDataSlice";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { MdFavorite } from "react-icons/md";
-import { any } from "joi";
+import { setUserData } from "@/utils/UserDataSlice";
+import { RootState } from "@/Store/store";
 
 export default function Navbar() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [Scrolled, setScrolled] = useState(false);
   const user = useSelector((state: RootState) => state.User.userData);
-  const [isAdmin, setisAdmin] = useState(false);
-
-  type User = {
-    email: string;
-    name: string;
-    _id: string;
-    role: string;
-  };
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const userJson: any = localStorage.getItem("user");
+    const userJson = localStorage.getItem("user");
     if (userJson) {
-      // Parse the JSON string
-      const user: User = JSON.parse(userJson);
-      const userData = localStorage.getItem("user");
-      const userDataString = typeof userData === "string" ? userData : "";
-      dispatch(setUserData(JSON.parse(userDataString)));
+      const user = JSON.parse(userJson);
+      dispatch(setUserData(user));
       if (user.role === "admin") {
-        setisAdmin(true);
+        setIsAdmin(true);
       }
-    } else {
-      console.log("No user data found in localStorage.");
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     window.onscroll = () => {
-      setScrolled(window.pageYOffset < 30 ? false : true);
+      setScrolled(window.pageYOffset > 30);
       return () => (window.onscroll = null);
     };
-    console.log("this is the user data from useeffect2", user);
-  }, [Scrolled]);
+  }, []);
+
+  useEffect(() => {
+    if (!Cookies.get("token") || !user) {
+      router.push("/");
+    }
+  }, [router, user]);
 
   const handleLogout = () => {
     Cookies.remove("token");
@@ -423,21 +634,14 @@ export default function Navbar() {
     location.reload();
   };
 
-  useEffect(() => {
-    if (!Cookies.get("token") || user === null) {
-      router.push("/");
-    }
-  }, [dispatch, router]);
-
   return (
     <div
       className={`navbar ${
-        Scrolled ? "bg-white/95 shadow-md" : "bg-white"
+        scrolled ? "bg-white/95 shadow-md" : "bg-white"
       } fixed top-0 left-0 w-full z-50`}
     >
       {/* Start Section */}
       <div className="navbar-start flex items-center">
-        {/* Dropdown for Small Screens */}
         <div className="dropdown">
           <label
             tabIndex={0}
@@ -466,21 +670,19 @@ export default function Navbar() {
               <Link href={"/"}>Homepage</Link>
             </li>
             <li>
-              <Link href={"/"}>Shop</Link>
+              <Link href={"/products"}>Shop</Link>
             </li>
             <li>
               <Link href={"/order/view-orders"}>My Orders</Link>
             </li>
-            {isAdmin ? (
+            {isAdmin && (
               <li>
                 <Link href={"/Dashboard"}>Dashboard</Link>
               </li>
-            ) : null}
+            )}
           </ul>
         </div>
-        {/* Logo Section */}
         <h1 className="text-black font-bold text-xl hidden lg:block">
-          {/* Replace with your logo */}
           <Link href="/">
             <img
               src="/LOGO_TRANSPARENT.avif"
@@ -500,56 +702,53 @@ export default function Navbar() {
           <li className="hover:bg-gray-100 rounded-lg">
             <Link href={"/products"}>Shop</Link>
           </li>
-
-          {user ? (
+          {user && (
             <li className="hover:bg-gray-100 rounded-lg">
               <Link href={"/order/view-orders"}>My Orders</Link>
             </li>
-          ) : null}
-          {isAdmin ? (
+          )}
+          {isAdmin && (
             <li className="hover:bg-gray-100 rounded-lg">
               <Link href={"/Dashboard"}>Dashboard</Link>
             </li>
-          ) : null}
+          )}
         </ul>
       </div>
 
       {/* End Section */}
       <div className="navbar-end">
-        <div className="flex items-center space-x-2">
-          {user ? (
-            <div className="flex items-center">
-              <button onClick={handleLogout} className="btn text-black mx-2">
-                Logout
-              </button>
-              <button
-                onClick={() => router.push("/order/create-order")}
-                className="btn btn-circle mx-2"
-              >
-                <FaCartArrowDown className="text-black text-xl" />
-              </button>
-              <button
-                onClick={() => router.push("/bookmark")}
-                className="btn btn-circle mx-2"
-              >
-                <MdFavorite className="text-black text-xl" />
-              </button>
-              <button
-                onClick={() => router.push("/order/view-orders")}
-                className="btn btn-circle mx-2"
-              >
-                <CiDeliveryTruck className="text-black text-xl" />
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => router.push("/auth/login")}
-              className="btn text-black mx-2"
-            >
-              Login
+        {user ? (
+          <div className="flex items-center space-x-2">
+            <button onClick={handleLogout} className="btn text-black mx-2">
+              Logout
             </button>
-          )}
-        </div>
+            <button
+              onClick={() => router.push("/order/create-order")}
+              className="btn btn-circle mx-2"
+            >
+              <FaCartArrowDown className="text-black text-xl" />
+            </button>
+            <button
+              onClick={() => router.push("/bookmark")}
+              className="btn btn-circle mx-2"
+            >
+              <MdFavorite className="text-black text-xl" />
+            </button>
+            <button
+              onClick={() => router.push("/order/view-orders")}
+              className="btn btn-circle mx-2"
+            >
+              <CiDeliveryTruck className="text-black text-xl" />
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => router.push("/auth/login")}
+            className="btn text-black mx-2"
+          >
+            Login
+          </button>
+        )}
       </div>
     </div>
   );
