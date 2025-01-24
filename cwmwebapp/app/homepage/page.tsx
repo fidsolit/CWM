@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+import { any } from "joi";
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -14,56 +16,57 @@ export default function HomePage() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         style={{ overflow: "hidden" }}
       >
-        <div className="relative">
+        <div className="relative h-screen">
           {/* Background Video */}
           <video
             className="absolute inset-0 object-cover w-full h-full"
-            src="/path-to-your-video.mp4" // Replace with the actual path or URL to your video
+            src="/videobackground.mp4" // Replace with the actual path or URL to your video
             autoPlay
             loop
-            muted
             playsInline
           />
           {/* Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-teal-700/60"></div>
           {/* Content */}
-          <div className="relative container mx-auto px-6 py-16 text-center">
-            <motion.h1
-              className="text-4xl sm:text-5xl font-bold leading-tight"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              Your Trusted Partner in Pharmacy Distribution
-            </motion.h1>
-            <motion.p
-              className="mt-6 text-lg sm:text-xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              Central West Marketing delivers healthcare products with
-              reliability and excellence.
-            </motion.p>
-            <motion.div
-              className="mt-8 flex flex-col sm:flex-row justify-center gap-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-            >
-              <Link
-                href="/products"
-                className="px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg shadow hover:bg-gray-100 transition"
+          <div className="relative flex items-center justify-center h-full text-center px-6">
+            <div>
+              <motion.h1
+                className="text-4xl sm:text-5xl font-bold leading-tight"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
               >
-                View Products
-              </Link>
-              <Link
-                href="/About"
-                className="px-8 py-4 bg-blue-800 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition"
+                Central West Marketing
+              </motion.h1>
+              <motion.p
+                className="mt-6 text-lg sm:text-xl"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2.5 }}
               >
-                Learn More
-              </Link>
-            </motion.div>
+                Central West Marketing delivers healthcare products with
+                reliability and excellence.
+              </motion.p>
+              <motion.div
+                className="mt-8 flex flex-col sm:flex-row justify-center gap-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 3 }}
+              >
+                <Link
+                  href="/products"
+                  className="px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg shadow hover:bg-gray-100 transition"
+                >
+                  View Products
+                </Link>
+                <Link
+                  href="/About"
+                  className="px-8 py-4 bg-blue-800 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition"
+                >
+                  Learn More
+                </Link>
+              </motion.div>
+            </div>
           </div>
           {/* Curved Section */}
           <div className="absolute bottom-0 left-0 right-0">
