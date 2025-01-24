@@ -117,8 +117,8 @@ export default function AddCategory() {
   };
 
   return (
-    <div className="w-full  p-4 min-h-screen  bg-gray-50 flex flex-col ">
-      <div className="text-sm breadcrumbs  border-b-2 border-b-orange-600">
+    <div className="w-full  p-4 min-h-screen md:mt-20  bg-gray-50 flex flex-col ">
+      <div className="text-sm breadcrumbs  border-b-2 border-b-blue-600">
         <ul className="dark:text-black">
           <li>
             <Link href={"/Dashboard"}>

@@ -30,7 +30,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["firebasestorage.googleapis.com"], // Firebase Storage domain
+    // domains: ["firebasestorage.googleapis.com"], // Firebase Storage domain
     remotePatterns: [
       {
         protocol: "https",

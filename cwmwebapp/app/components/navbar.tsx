@@ -651,12 +651,14 @@ export default function Navbar() {
     localStorage.clear();
     location.reload();
   };
-
   return (
     <div
-      className={`navbar ${
-        scrolled ? "bg-white/95 shadow-md" : "bg-white"
-      } fixed top-0 left-0 w-full z-50`}
+      className="navbar fixed top-0 left-0 w-full z-50 shadow-md"
+      style={{
+        backgroundColor: scrolled
+          ? "rgba(255, 255, 255, 0.95)" // Background with higher opacity when scrolled
+          : "rgba(255, 255, 255, 0.1)", // Background with lower opacity when not scrolled
+      }}
     >
       {/* Start Section */}
       <div className="navbar-start flex items-center">

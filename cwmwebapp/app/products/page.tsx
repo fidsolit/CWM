@@ -115,7 +115,7 @@ export default function Products() {
   };
 
   return (
-    <div className="min-h-screen md: mt-10 bg-gray-50">
+    <div className="min-h-screen md:mt-20 bg-gray-50">
       {/* Header Section */}
       <div className="bg-blue-950 text-white py-12">
         <div className="container mx-auto px-6 text-center">
