@@ -596,6 +596,15 @@ import { CiDeliveryTruck } from "react-icons/ci";
 import { MdFavorite } from "react-icons/md";
 import { setUserData } from "@/utils/UserDataSlice";
 import { RootState } from "@/Store/store";
+import { get_all_products } from "../Services/Admin/product";
+import useSWR from "swr";
+import {
+  setCatLoading,
+  setCategoryData,
+  setOrderData,
+  setProdLoading,
+  setProductData,
+} from "@/utils/AdminSlice";
 
 export default function Navbar() {
   const router = useRouter();
@@ -603,6 +612,15 @@ export default function Navbar() {
   const user = useSelector((state: RootState) => state.User.userData);
   const [isAdmin, setIsAdmin] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // const { data: productData, isLoading: productLoading } = useSWR(
+  //   "/gettingAllProductsFOrAdmin",
+  //   get_all_products
+  // );
+  // useEffect(() => {
+  //   dispatch(setProductData(productData?.data));
+  //   dispatch(setProdLoading(productLoading));
+  // }, [productData, productLoading]);
 
   useEffect(() => {
     const userJson = localStorage.getItem("user");

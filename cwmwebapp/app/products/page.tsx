@@ -4,15 +4,45 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProductCard from "../components/ProductCard";
 import { get_all_products } from "../Services/Admin/product";
-
+import useSWR from "swr";
 import { RootState } from "@/Store/store";
 import { useSelector } from "react-redux";
 import FeaturedProduct from "../components/FeaturedProduct";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  setCatLoading,
+  setCategoryData,
+  setOrderData,
+  setProdLoading,
+  setProductData,
+} from "@/utils/AdminSlice";
+
+interface userData {
+  email: String;
+  role: String;
+  _id: String;
+  name: String;
+}
 
 export default function Products() {
+  const dispatch = useDispatch();
+
+  const { data: productData, isLoading: productLoading } = useSWR(
+    "/gettingAllProductsFOrAdmin",
+    get_all_products
+  );
+  useEffect(() => {
+    dispatch(setProductData(productData?.data));
+    dispatch(setProdLoading(productLoading));
+  }, [productData, productLoading]);
+
   const router = useRouter();
   const prodData = useSelector((state: RootState) => state.Admin.product);
+  const user = useSelector(
+    (state: RootState) => state.User.userData
+  ) as userData | null;
 
   const prodLoading = useSelector(
     (state: RootState) => state.Admin.productLoading
@@ -38,6 +68,7 @@ export default function Products() {
     }
   });
   const filteredProducts = FeaturedProducts?.slice(0, 9);
+
   const products = [
     {
       id: 1,

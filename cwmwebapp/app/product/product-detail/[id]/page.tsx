@@ -403,7 +403,7 @@ export default function Page({ params }: { params: { id: string } }) {
                   "Loading Product Description..."}
               </p>
               <h1 className="text-3xl font-semibold text-black py-2">
-                $ {`${prodData?.productPrice}` || "N/A"}
+                Php {`${prodData?.productPrice}` || "N/A"}
               </h1>
               <div className="w-full py-2 lg:flex-row flex-col flex">
                 <button
