@@ -42,6 +42,7 @@ export default function Page() {
   const fetchBookmarkData = async () => {
     if (!user?._id) return Router.push("/");
     const cartData = await get_all_bookmark_items(user?._id);
+
     if (cartData?.success) {
       dispatch(setBookmark(cartData?.data));
     } else {

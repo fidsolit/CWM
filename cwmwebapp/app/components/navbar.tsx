@@ -653,7 +653,7 @@ export default function Navbar() {
   };
   return (
     <div
-      className="navbar fixed top-0 left-0 w-full z-50 shadow-md"
+      className="navbar ease-in transition-all fixed top-0 left-0 w-full z-50 shadow-md"
       style={{
         backgroundColor: scrolled
           ? "rgba(255, 255, 255, 0.95)" // Background with higher opacity when scrolled
