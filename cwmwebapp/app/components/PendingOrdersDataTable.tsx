@@ -1,22 +1,12 @@
 "use Client";
 
 import React, { useEffect, useState } from "react";
-
 import { useSWRConfig } from "swr";
 import { toast } from "react-toastify";
 import DataTable from "react-data-table-component";
-import Image from "next/image";
-// import Loading from '@/app/loading';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "@/Store/store";
 import { useRouter } from "next/navigation";
-import { delete_a_product } from "../Services/Admin/product";
-import {
-  delete_a_bookmark_item,
-  get_all_bookmark_items,
-} from "../Services/common/bookmark";
-import { setBookmark } from "@/utils/Bookmark";
-// import { update_order_status } from '@/Services/Admin/order';
 import { update_order_status } from "../Services/Admin/order";
 
 interface Order {
@@ -28,126 +18,95 @@ interface Order {
   orderItems: {
     qty: number;
     product: {
-      createdAt: string;
-      productCategory: string;
-      productDescription: string;
-      productFeatured: boolean;
-      productImage: string;
       productName: string;
       productPrice: number;
-      productQuantity: number;
-      productSlug: string;
-      updatedAt: string;
-      __v: number;
       _id: string;
     };
     _id: string;
   }[];
-  paidAt: string;
-  paymentMethod: string;
-  shippingAddress: {
-    address: string;
-    city: string;
-    country: string;
-    fullName: string;
-    postalCode: number;
-  };
-  shippingPrice: number;
-  taxPrice: number;
   totalPrice: number;
-  updatedAt: string;
-  user: {
-    email: string;
-    name: string;
-    password: string;
-    role: string;
-    __v: number;
-    _id: string;
-  };
-  __v: number;
   _id: string;
-}
-
-interface userData {
-  email: String;
-  role: String;
-  _id: String;
-  name: String;
 }
 
 export default function PendingOrdersDataTable() {
   const { mutate } = useSWRConfig();
   const router = useRouter();
-  const [orderData, setOrderData] = useState<Order[] | []>([]);
-  const data = useSelector((state: RootState) => state.Admin.Order) as
-    | Order[]
-    | [];
+  const [orderData, setOrderData] = useState<Order[]>([]);
+  const data = useSelector((state: RootState) => state.Admin.Order) as Order[];
   const [search, setSearch] = useState("");
-  const [filteredData, setFilteredData] = useState<Order[] | []>([]);
+  const [filteredData, setFilteredData] = useState<Order[]>([]);
 
+  // Initialize pending orders
   useEffect(() => {
-    const filterPendingOrder = data?.filter(
-      (item) => item?.isDelivered === false
-    );
+    const filterPendingOrder = data?.filter((item) => !item.isDelivered);
     setOrderData(filterPendingOrder);
   }, [data]);
 
+  // Update filtered data whenever orderData changes
   useEffect(() => {
     setFilteredData(orderData);
   }, [orderData]);
 
+  // Handle order status update
   const updateOrderStatus = async (id: string) => {
     const res = await update_order_status(id);
     if (res?.success) {
       toast.success(res?.message);
+
+      // Update state immutably
+      setOrderData((prevOrders) =>
+        prevOrders.map((order) =>
+          order._id === id ? { ...order, isDelivered: true } : order
+        )
+      );
+
       mutate("gettingAllOrdersForAdmin");
     } else {
       toast.error(res?.message);
     }
   };
 
+  // Search functionality
+  useEffect(() => {
+    if (!search) {
+      setFilteredData(orderData);
+    } else {
+      setFilteredData(
+        orderData?.filter((item) =>
+          item._id.toUpperCase().includes(search.toUpperCase())
+        )
+      );
+    }
+  }, [search, orderData]);
+
   const columns = [
     {
       name: "Order ID",
-      selector: (row: Order) => row?._id,
+      selector: (row: Order) => row._id,
       sortable: true,
     },
     {
       name: "Total Price",
-      selector: (row: Order) => row?.totalPrice,
+      selector: (row: Order) => row.totalPrice,
       sortable: true,
     },
     {
       name: "Delivered",
-      selector: (row: Order) => (row?.isDelivered ? "Yes" : "No"),
+      selector: (row: Order) => (row.isDelivered ? "Yes" : "No"),
       sortable: true,
     },
     {
       name: "Action",
       cell: (row: Order) => (
         <button
-          onClick={() => updateOrderStatus(row?._id)}
-          className=" w-20 py-2 mx-2 text-xs text-green-600 hover:text-white my-2 hover:bg-green-600 border border-green-600 rounded transition-all duration-700"
+          onClick={() => updateOrderStatus(row._id)}
+          className="w-20 py-2 mx-2 text-xs text-green-600 hover:text-white hover:bg-green-600 border border-green-600 rounded transition-all duration-700"
         >
-          Delivered
+          Mark Delivered
         </button>
       ),
     },
   ];
-
-  useEffect(() => {
-    if (search === "") {
-      setFilteredData(orderData);
-    } else {
-      setFilteredData(
-        orderData?.filter((item) => {
-          const itemData = item?._id?.toUpperCase();
-          const textData = search.toUpperCase();
-          return itemData.indexOf(textData) > -1;
-        })
-      );
-    }
-  }, [search, orderData]);
 
   return (
     <div className="w-full h-full">
@@ -156,8 +115,8 @@ export default function PendingOrdersDataTable() {
         data={filteredData || []}
         key={"ThisOrdersData"}
         pagination
-        keyField="id"
-        title={`Orders list`}
+        keyField="_id"
+        title={`Orders List`}
         fixedHeader
         fixedHeaderScrollHeight="700px"
         selectableRows
@@ -166,14 +125,14 @@ export default function PendingOrdersDataTable() {
         subHeader
         subHeaderComponent={
           <input
-            className="w-60 dark:bg-transparent py-2 px-2  outline-none  border-b-2 border-orange-600"
-            type={"search"}
+            className="w-60 dark:bg-transparent py-2 px-2 outline-none border-b-2 border-orange-600"
+            type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder={"Orders ID"}
+            placeholder="Order ID"
           />
         }
-        className="bg-white px-4 h-5/6 "
+        className="bg-white px-4 h-5/6"
       />
     </div>
   );
