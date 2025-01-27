@@ -610,7 +610,7 @@ export default function Navbar() {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.User.userData);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false); // wala na to soon
   const [scrolled, setScrolled] = useState(false);
 
   // const { data: productData, isLoading: productLoading } = useSWR(

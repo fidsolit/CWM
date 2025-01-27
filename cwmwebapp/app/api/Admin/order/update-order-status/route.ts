@@ -70,9 +70,10 @@ export async function PUT(req: Request) {
           success: false,
           message: "Please provide the order id!",
         });
-
+      console.log("ito yong boong body", body);
       const saveData = await Order.findOneAndUpdate(
-        body._id, // Ensure it looks for `_id` in the object
+        { _id: body }, // Ensure it looks for `_id` in the object
+
         { isDelivered: true },
         { new: true } // Return the updated document
       );
