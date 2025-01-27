@@ -20,7 +20,7 @@ export default function AdminNavbar() {
   };
 
   return (
-    <div className="navbar dark:text-black bg-white">
+    <div className="navbar  dark:text-black bg-white">
       <div className="flex-1">
         <div className="dropdown md:hidden">
           <label tabIndex={0} className="btn btn-active btn-circle">

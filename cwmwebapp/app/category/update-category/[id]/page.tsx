@@ -126,8 +126,8 @@ export default function Page({
   };
 
   return (
-    <div className="w-full dark:text-black p-4 min-h-screen  bg-gray-50 flex flex-col ">
-      <div className="text-sm breadcrumbs  border-b-2 border-b-orange-600">
+    <div className="w-full bg-gray-50 h-screen px-2 md:mt-20 py-2">
+      <div className="text-sm breadcrumbs  border-b-2 border-b-blue-600">
         <ul>
           <li onClick={() => dispatch(setNavActive("Base"))}>
             <Link href={"/Dashboard"}>
