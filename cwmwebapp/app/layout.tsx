@@ -31,7 +31,6 @@ export default function RootLayout({
           <Navbar />
           {children}
 
-          {/* <Footer /> */}
           <Toastcomponent
             position="top-right"
             autoClose={3000}
@@ -46,6 +45,7 @@ export default function RootLayout({
           />
           <FeaturedProduct />
           <TopCategories />
+          <Footer />
         </Providers>
       </body>
     </html>

@@ -3,15 +3,18 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FaTwitter } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { FaInstagramSquare } from "react-icons/fa";
 
 export default function Footer() {
   const [currentLogo, setCurrentLogo] = useState(0);
 
   const logos = [
-    { src: "/companylogos/company1.jpg", alt: "Noondalton" },
-    { src: "/companylogos/company2.jpg", alt: "JJ graphics design services" },
-    { src: "/companylogos/company3.jpg", alt: "smarties clothing" },
-    { src: "/companylogos/company4.png", alt: "regus" },
+    { src: "/companylogos/company1.png", alt: "Rose pharmacy" },
+    { src: "/companylogos/company2.png", alt: "Mercury drug" },
+    { src: "/companylogos/company3.jpg", alt: "threesixty pharmacy" },
+    { src: "/companylogos/company4.png", alt: "watsons" },
   ];
 
   // Automatically change logos every 4 seconds
@@ -34,29 +37,32 @@ export default function Footer() {
               Follow us on social media. We respond within 1-2 business days.
             </h5>
             <div className="mt-6 flex space-x-4">
-              <a
+              {/* <a
                 href="https://twitter.com"
                 className="bg-white text-blue-400 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full hover:bg-blue-400 hover:text-white transition-colors duration-300"
               >
-                <i className="fab fa-twitter" />
-              </a>
+             
+                <FaTwitter />
+              </a> */}
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/CWMIncorporated"
                 className="bg-white text-blue-600 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300"
               >
-                <i className="fab fa-facebook" />
+                {/* <i className="fab fa-facebook" /> */}
+                <FaFacebook />
               </a>
-              <a
+              {/* <a
                 href="https://dribbble.com"
                 className="bg-white text-pink-500 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full hover:bg-pink-500 hover:text-white transition-colors duration-300"
               >
                 <i className="fab fa-dribbble" />
-              </a>
+              </a> */}
               <a
-                href="https://github.com"
+                href="https://www.instagram.com/centralwestshop/?hl=en"
                 className="bg-white text-gray-800 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-800 hover:text-white transition-colors duration-300"
               >
-                <i className="fab fa-github" />
+                {/* <i className="fab fa-github" /> */}
+                <FaInstagramSquare />
               </a>
             </div>
           </div>
