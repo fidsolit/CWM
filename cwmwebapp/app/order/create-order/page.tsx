@@ -2,6 +2,7 @@
 "use client";
 
 import Cookies from "js-cookie";
+import GCashPaymentModal from "@/app/components/GCashPaymentModal";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -50,6 +51,7 @@ type Data = {
 };
 
 export default function Page() {
+  const [isGCashModalOpen, setIsGCashModalOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("PayPal");
   const [loading, setLoading] = useState(true);
@@ -96,6 +98,7 @@ export default function Page() {
   const handleGcashPayment = async (amount: number) => {
     try {
       setLoader(true);
+      setIsGCashModalOpen(true); // Open the modal first
       const response = await axios.post(
         "https://api.gcash.com/v1/payments/pay",
         {
@@ -105,6 +108,7 @@ export default function Page() {
       );
       if (response.data.success) {
         toast.success("Payment successful via GCash!");
+        setIsGCashModalOpen(false); // Close modal on success
       } else {
         toast.error("Payment failed: " + response.data.message);
       }
@@ -332,6 +336,13 @@ export default function Page() {
           </form>
         </div>
       )}
+      <GCashPaymentModal
+        isOpen={isGCashModalOpen}
+        onClose={() => setIsGCashModalOpen(false)}
+        amount={totalPrice + 600}
+        onConfirm={() => handleGcashPayment(totalPrice + 600)}
+        loading={loader}
+      />
 
       <ToastContainer />
     </div>
