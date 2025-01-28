@@ -31,13 +31,13 @@ const About = () => {
         style={{ backgroundImage: `url(${backgrounds[backgroundIndex]})` }}
       >
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-800 via-purple-700 to-transparent opacity-75"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white-800 via-white-700 to-transparent opacity-75"></div>
 
         {/* Hero Content */}
-        <div className="relative z-10 flex flex-col justify-center items-center h-full text-center text-white space-y-6">
+        <div className="relative z-10 flex flex-col justify-center items-center h-full text-center text-red space-y-6">
           {/* Fancy Heading */}
-          <h1 className="text-6xl font-extrabold tracking-wide animate-fade-in-up">
-            Elevate Your Tech Experience
+          <h1 className="text-6xl text-red-600 font-extrabold tracking-wide animate-fade-in-up">
+            CENTRAL WEST MEDICALE INC.
           </h1>
 
           {/* Subheading */}
@@ -49,7 +49,7 @@ const About = () => {
           {/* Call to Action Button */}
           <Link
             href="/products"
-            className="inline-block px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full text-lg font-semibold hover:scale-110 transition-transform animate-bounce-slow"
+            className="inline-block text-white px-8 py-4 bg-gradient-to-r from-red-500 to-red-500 rounded-full text-lg font-semibold hover:scale-110 transition-transform animate-bounce-slow"
           >
             Shop Now
           </Link>

@@ -69,7 +69,7 @@ export default function Footer() {
                 <ul className="list-unstyled space-y-2">
                   <li>
                     <Link
-                      href="/pages/About"
+                      href="/About"
                       className="text-gray-300 hover:text-white font-semibold transition-colors"
                     >
                       About Us

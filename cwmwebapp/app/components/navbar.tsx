@@ -690,7 +690,7 @@ export default function Navbar() {
               <Link href={"/"}>Homepage</Link>
             </li>
             <li>
-              <Link href={"/products"}>Shop</Link>
+              <Link href={"/products"}>Products</Link>
             </li>
             <li>
               <Link href={"/order/view-orders"}>My Orders</Link>
@@ -700,6 +700,9 @@ export default function Navbar() {
                 <Link href={"/Dashboard"}>Dashboard</Link>
               </li>
             )}
+            <li>
+              <Link href={"/About"}>About us</Link>
+            </li>
           </ul>
         </div>
         <h1 className="text-black font-bold text-xl hidden lg:block">
@@ -732,6 +735,9 @@ export default function Navbar() {
               <Link href={"/Dashboard"}>Dashboard</Link>
             </li>
           )}
+          <li className="hover:bg-gray-100 rounded-lg">
+            <Link href={"/About"}>About us</Link>
+          </li>
         </ul>
       </div>
 

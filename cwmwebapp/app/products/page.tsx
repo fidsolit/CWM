@@ -73,6 +73,7 @@ export default function Products() {
     {
       id: 1,
       name: "NOVOSMART Drops 20ML",
+
       description:
         "NOVOSMART Drops offer a premium daily dose of Omega 3 specifically formulated for children, ensuring optimum health and development. Our meticulously crafted Omega 3 is sourced from Europe, promising an unparalleled level of high quality and purity that you can confidently rely on.",
       price: "₱590.00",
