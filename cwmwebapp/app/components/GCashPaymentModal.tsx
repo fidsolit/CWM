@@ -51,6 +51,8 @@ const GCashPaymentModal: React.FC<GCashPaymentModalProps> = ({
               src="/images/gcash logo.png"
               alt="GCash Logo"
               className="h-16 object-contain"
+              width={100}
+              height={100}
             />
           </div>
 
