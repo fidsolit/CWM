@@ -174,8 +174,8 @@ export default function Page() {
   const totalPrice = calculateTotalPrice(cartData as Data[]);
 
   return (
-    <div className="w-full h-full bg-gray-50 px-4 py-6">
-      <div className="text-sm breadcrumbs border-b-2 border-b-orange-600">
+    <div className="w-full bg-gray-50 h-screen px-2 md:mt-20 py-2">
+      <div className="text-sm breadcrumbs  border-b-2 border-b-blue-600">
         <ul className="dark:text-black">
           <li>
             <Link href={"/"}>Home</Link>
