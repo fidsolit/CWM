@@ -96,6 +96,7 @@ export default function HomePage() {
               {/* Image inside the curve */}
               <div className="absolute inset-x-0 bottom-0  h-auto w-auto mx-auto translate-y-1/2 flex justify-center">
                 <Image
+                  // src="/images/listofproducts2.png"
                   src="/images/listofproducts.png"
                   // layout="intrinsic"
                   className="drop-shadow-lg"
