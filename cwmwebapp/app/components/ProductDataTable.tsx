@@ -61,6 +61,11 @@ export default function ProductDataTable() {
       sortable: true,
     },
     {
+      name: "Available Quantity",
+      selector: (row: ProductData) => row?.productQuantity,
+      sortable: true,
+    },
+    {
       name: "Image",
       cell: (row: ProductData) => (
         <Image

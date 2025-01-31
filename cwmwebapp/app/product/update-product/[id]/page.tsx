@@ -11,7 +11,10 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { setNavActive } from "@/utils/AdminNavSlice";
 import { RootState } from "@/Store/store";
-// import { get_product_by_id, update_a_product } from '../Services/Admin/product';
+import {
+  get_product_by_id,
+  update_a_product,
+} from "@/app/Services/Admin/product";
 import { get_product_by_category_id } from "@/app/Services/Admin/product";
 import Cookies from "js-cookie";
 
