@@ -606,13 +606,25 @@ import {
   setProductData,
 } from "@/utils/AdminSlice";
 
+interface User {
+  email: string;
+  name: string;
+  _id: string;
+  role: string;
+}
+
 export default function Navbar() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.User.userData);
-  const [isAdmin, setIsAdmin] = useState(false); // wala na to soon
+  const user = useSelector(
+    (state: RootState) => state.User.userData
+  ) as User | null;
+  console.log("this is the user data from navbar", user); // this is the user data from navbar {email: "fede@gmail", name: "fede", _id: "61f4
+
   const [scrolled, setScrolled] = useState(false);
 
+  // Check if user is admin directly from the Redux state
+  const isAdmin = user?.role === "admin";
   // const { data: productData, isLoading: productLoading } = useSWR(
   //   "/gettingAllProductsFOrAdmin",
   //   get_all_products
@@ -622,22 +634,25 @@ export default function Navbar() {
   //   dispatch(setProdLoading(productLoading));
   // }, [productData, productLoading]);
 
-  useEffect(() => {
-    const userJson = localStorage.getItem("user");
-    if (userJson) {
-      const user = JSON.parse(userJson);
-      dispatch(setUserData(user));
-      if (user.role === "admin") {
-        setIsAdmin(true);
-      }
-    }
-  }, [dispatch]);
+  //this will removed 2/1/2025 commented
+  // useEffect(() => {
+  //   const userJson = localStorage.getItem("user");
+  //   if (userJson) {
+  //     const user = JSON.parse(userJson);
+  //     dispatch(setUserData(user));
+  //     if (user.role === "admin") {
+  //       setIsAdmin(true);
+  //     }
+  //   }
+  // }, [dispatch]);
 
   useEffect(() => {
-    window.onscroll = () => {
-      setScrolled(window.pageYOffset > 30);
-      return () => (window.onscroll = null);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
     };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
