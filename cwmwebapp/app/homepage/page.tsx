@@ -47,7 +47,7 @@ export default function HomePage() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                 >
-                  Central West Marketing
+                  Central West Shop
                 </motion.h1>
                 <motion.p
                   className="mt-6 text-lg sm:text-xl"
