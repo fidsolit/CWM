@@ -22,7 +22,7 @@ export async function PUT(req: Request) {
       } = data;
 
       const saveData = await Product.findOneAndUpdate(
-        _id,
+        { _id: _id },
         {
           productName: name,
           productDescription: description,

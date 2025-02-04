@@ -20,7 +20,7 @@ export default function AdminNavbar() {
   };
 
   return (
-    <div className="navbar  dark:text-black bg-white">
+    <div className="navbar  dark:text-black bg-red">
       <div className="flex-1">
         <div className="dropdown md:hidden">
           <label tabIndex={0} className="btn btn-active btn-circle">
@@ -63,6 +63,9 @@ export default function AdminNavbar() {
             </li>
             <li onClick={() => dispatch(setNavActive("activeDeliveredOrder"))}>
               <button>Completed orders</button>
+            </li>
+            <li onClick={() => dispatch(setNavActive("activeStockIn"))}>
+              <button>Stock In</button>
             </li>
           </ul>
         </div>

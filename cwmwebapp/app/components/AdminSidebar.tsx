@@ -10,6 +10,7 @@ import { GrCompliance } from "react-icons/gr";
 import { setNavActive } from "@/utils/AdminNavSlice";
 import { useDispatch } from "react-redux";
 
+import { AiFillProduct } from "react-icons/ai";
 export default function AdminSidebar() {
   const dispatch = useDispatch();
   return (
@@ -44,8 +45,7 @@ export default function AdminSidebar() {
             className="py-3 px-1 mb-3"
           >
             <button className="flex items-center justify-center">
-              {" "}
-              <GiLoincloth className="mx-2" /> Products
+              <AiFillProduct className="mx-2" /> Products
             </button>
           </li>
           <li className="py-3 px-1 mb-3">
@@ -83,6 +83,16 @@ export default function AdminSidebar() {
               {" "}
               <GrCompliance className="mx-2" />
               Completed orders
+            </button>
+          </li>
+          <li
+            className="py-3 px-1 mb-3"
+            onClick={() => dispatch(setNavActive("activeStockIn"))}
+          >
+            <button className="flex items-center justify-center">
+              {" "}
+              <GrCompliance className="mx-2" />
+              Stock In
             </button>
           </li>
         </ul>
