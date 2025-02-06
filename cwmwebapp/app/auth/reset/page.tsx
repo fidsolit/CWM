@@ -194,13 +194,25 @@ export default function ResetPassword() {
   const handleRequestCode = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    const generateRandomCode = (): string => {
+      const characters = "012345";
+      let code = "";
+      for (let i = 0; i < 5; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        code += characters[randomIndex];
+      }
+      return code;
+    };
+    const OTP = generateRandomCode();
+    console.log("this is the email and OTP :", email, OTP);
 
     try {
       // TODO: Replace with your API call to send verification code
+
       const response = await fetch("/api/auth/request-reset", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, OTP }),
       });
 
       const data = await response.json();
