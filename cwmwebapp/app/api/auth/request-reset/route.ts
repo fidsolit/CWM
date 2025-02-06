@@ -2,34 +2,48 @@ import connectDB from "@/DB/connectDB";
 import User from "@/models/User";
 import Joi, { string } from "joi";
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
 import { hash } from "bcryptjs";
-import emailjs, { send } from "@emailjs/browser";
+// import emailjs, { send } from "@emailjs/browser";
 
-const sendEmail = (email: string) => {
-  console.log("this is the email for sending", email);
-  const templateparms = {
-    username: "fidem0411@gmail.com",
-    email: "fidem0411@gmail.com",
-    temppass: "tp",
-  };
-  emailjs
-    .sendForm(
-      process.env.emailjs_serviceID as string,
-      process.env.emailjs_templateID as string,
-      templateparms as any,
-      {
-        publicKey: process.env.emailjs_publicKey,
-      }
-    )
-    .then(
-      () => {
-        console.log("SUCCESS!");
-      },
-      (error: any) => {
-        console.log("FAILED to send email js", error.text);
-      }
-    );
+// const sendEmail = (email: string) => {
+//   console.log("this is the email for sending", email);
+//   const templateparms = {
+//     username: "fidem0411@gmail.com",
+//     email: "fidem0411@gmail.com",
+//     temppass: "tp",
+//   };
+//   emailjs
+//     .sendForm(
+//       process.env.emailjs_serviceID ?? "",
+//       process.env.emailjs_templateID ?? "",
+//       templateparms as any,
+//       { publicKey: process.env.emailjs_publicKey }
+//     )
+//     .then(
+//       () => {
+//         console.log("SUCCESS!");
+//       },
+//       (error: any) => {
+//         console.log("FAILED to send email js", error.text);
+//       }
+//     );
+//   console.log("Service ID:", process.env.emailjs_serviceID);
+//   console.log("Template ID:", process.env.emailjs_templateID);
+//   console.log("Public Key:", process.env.emailjs_publicKey);
+//   console.log("Template Params:", templateparms);
+// };
+
+const resend = new Resend("re_5JyeEMad_GG7Tvk9pu7i2Nt6ctapXo4oL");
+
+export const sendEmail = async (email: string) => {
+  await resend.emails.send({
+    from: "FCODES <onboarding@resend.dev>",
+    to: email,
+    subject: "RESET PASSWORD",
+    html: "<p>This is your OTP Please dont share  <strong>39838</strong>!</p>",
+  });
 };
 
 const schema = Joi.object({
@@ -57,7 +71,18 @@ export async function POST(req: Request) {
         message: "Email Not Found",
       });
     } else {
-      sendEmail(email);
+      try {
+        const parasendemail = sendEmail(email);
+        if (!parasendemail) {
+          return NextResponse.json({
+            success: false,
+            message: "Email Not Sent resend email again",
+          });
+          console.log("email not send to user fede ");
+        }
+      } catch (error) {
+        console.log("Error in sending email => ", error);
+      }
 
       //   const hashedPassword = await hash(password, 12);
       //   const createUser = await User.create({
@@ -67,6 +92,7 @@ export async function POST(req: Request) {
       //     role: "user",
       //   });
       // if (createUser)
+
       return NextResponse.json({
         success: true,
         message: "Code has sent to your email",
