@@ -19,6 +19,7 @@ export default function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState<Boolean>(false);
+  const [rememberme, setrememberme] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -122,7 +123,8 @@ export default function Login() {
                         id="remember"
                         aria-describedby="remember"
                         type="checkbox"
-                        checked
+                        onChange={() => setrememberme(!rememberme)}
+                        checked={rememberme}
                         className="w-4 h-4 bg-white  border border-gray-300 rounded focus:ring-3 focus:ring-orange-300  "
                       />
                     </div>
