@@ -273,6 +273,7 @@ export default function Page({ params }: { params: { id: string } }) {
     const userData = localStorage.getItem("user");
     if (!userData) return;
     dispatch(setUserData(JSON.parse(userData)));
+    console.log("userData", userData);
   }, [dispatch]);
 
   useEffect(() => {
