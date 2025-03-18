@@ -7,6 +7,7 @@ import CategoryDataTable from "./CategoryDataTable";
 import PendingOrdersDataTable from "./PendingOrdersDataTable";
 import CompletedOrderDataTable from "./CompletedOrderDataTable";
 import StockInDataTable from "./StockIn";
+import POSDataTable from "./posTable";
 
 export default function SuperComponent() {
   const navActive = useSelector((state: RootState) => state.AdminNav.ActiveNav);
@@ -23,6 +24,8 @@ export default function SuperComponent() {
       return <CompletedOrderDataTable />;
     case "activeStockIn":
       return <StockInDataTable />;
+    case "activePOS":
+      return <POSDataTable />;
     default:
       return <TileContainer />;
   }

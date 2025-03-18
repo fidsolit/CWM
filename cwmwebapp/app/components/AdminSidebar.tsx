@@ -95,6 +95,16 @@ export default function AdminSidebar() {
               Stock In
             </button>
           </li>
+          <li
+            className="py-3 px-1 mb-3"
+            onClick={() => dispatch(setNavActive("activePOS"))}
+          >
+            <button className="flex items-center justify-center">
+              {" "}
+              <GrCompliance className="mx-2" />
+              POS
+            </button>
+          </li>
         </ul>
       </div>
     </div>
