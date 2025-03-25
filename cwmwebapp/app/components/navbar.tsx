@@ -705,7 +705,7 @@ export default function Navbar() {
               <Link href={"/"}>Homepage</Link>
             </li>
             <li>
-              <Link href={"/products"}>Products</Link>
+              <Link href={"/Products"}>Products</Link>
             </li>
             <li>
               <Link href={"/order/view-orders"}>My Orders</Link>
@@ -722,17 +722,13 @@ export default function Navbar() {
         </div>
         <h1 className="text-black font-bold text-xl hidden lg:block">
           <Link href="/">
-            <img
-              src="/LOGO_TRANSPARENT.avif"
-              alt="Logo CWM"
-              className="h-10 w-auto"
-            />
+            <img src="/logonobg.png" alt="Logo CWM" className="w-20" />
           </Link>
         </h1>
       </div>
 
       {/* Center Section */}
-      <div className="navbar-center hidden lg:flex">
+      <div className="navbar-center hidden lg:flex font-bold">
         <ul className="menu menu-horizontal px-1">
           <li className="hover:bg-gray-100 rounded-lg">
             <Link href={"/"}>Homepage</Link>

@@ -45,7 +45,7 @@ export default function Footer() {
                 <FaTwitter />
               </a> */}
               <a
-                href="https://www.facebook.com/CWMIncorporated"
+                href="https://www.facebook.com/FCodesCompany"
                 className="bg-white text-blue-600 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300"
               >
                 {/* <i className="fab fa-facebook" /> */}
@@ -58,7 +58,7 @@ export default function Footer() {
                 <i className="fab fa-dribbble" />
               </a> */}
               <a
-                href="https://www.instagram.com/centralwestshop/?hl=en"
+                href="https://www.facebook.com/FCodesCompany"
                 className="bg-white text-gray-800 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-800 hover:text-white transition-colors duration-300"
               >
                 {/* <i className="fab fa-github" /> */}

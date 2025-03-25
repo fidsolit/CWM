@@ -193,7 +193,7 @@
 //                   onClick={AddToCart}
 //                   className="btn m-2 lg:w-52 h-10 btn-outline btn-success flex items-center justify-center"
 //                 >
-//                   {" "}
+//                   {" "}n
 //                   <BiCartAdd className="text-3xl mx-2" /> Add to Cart
 //                 </button>
 //                 <button
