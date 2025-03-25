@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const About = () => {
-  console.log("You're on the about page");
+  // console.log("You're on the about page");
 
   const [backgroundIndex, setBackgroundIndex] = useState(0);
 
@@ -31,25 +31,25 @@ const About = () => {
         style={{ backgroundImage: `url(${backgrounds[backgroundIndex]})` }}
       >
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white-800 via-white-700 to-transparent opacity-75"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-800 via-purple-700 to-transparent opacity-75"></div>
 
         {/* Hero Content */}
-        <div className="relative z-10 flex flex-col justify-center items-center h-full text-center text-red space-y-6">
+        <div className="relative z-10 flex flex-col justify-center items-center h-full text-center text-white space-y-6">
           {/* Fancy Heading */}
-          <h1 className="text-6xl text-red-600 font-extrabold tracking-wide animate-fade-in-up">
-            CENTRAL WEST MEDICALE INC.
+          <h1 className="text-6xl font-extrabold tracking-wide animate-fade-in-up">
+            Elevate Your Tech Experience
           </h1>
 
           {/* Subheading */}
           <p className="text-xl font-light max-w-2xl animate-fade-in-down">
-            Discover high-quality healthcare solutions and expert services
-            tailored for you. Let's power your potential.
+            Discover top-tier computer supplies and expert services tailored for
+            you. Let's power your potential.
           </p>
 
           {/* Call to Action Button */}
           <Link
             href="/products"
-            className="inline-block text-white px-8 py-4 bg-gradient-to-r from-red-500 to-red-500 rounded-full text-lg font-semibold hover:scale-110 transition-transform animate-bounce-slow"
+            className="inline-block px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full text-lg font-semibold hover:scale-110 transition-transform animate-bounce-slow"
           >
             Shop Now
           </Link>
@@ -57,7 +57,7 @@ const About = () => {
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-10 flex justify-center w-full">
-          <a href="#background" className="text-white animate-bounce">
+          <a href="#mission" className="text-white animate-bounce">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8"
@@ -76,49 +76,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Our Background Section */}
-      <section id="background" className="py-16 px-6 bg-white text-gray-800">
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-extrabold text-center mb-6">
-            Our Background
-          </h2>
-          <p className="text-lg leading-relaxed max-w-4xl mx-auto text-center">
-            Central West Medicale Inc. was formed by our President and CEO, Ms.
-            Hamela Juson, in July 2010. Based in Cebu, Philippines, Central West
-            offers registered pharmaceutical products to cater to the needs of
-            patients seeking quality alternative healthcare.
-          </p>
-          <p className="text-lg leading-relaxed max-w-4xl mx-auto text-center mt-4">
-            From our humble beginnings, CWMI is now present in almost all
-            private hospitals in the Visayas and Mindanao regions. With the
-            support of our distribution channels, our products are available in
-            almost every part of the Philippines.
-          </p>
-        </div>
-      </section>
-
-      {/* What We Do Section */}
-      <section id="what-we-do" className="py-16 px-6 bg-gray-100 text-gray-800">
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-extrabold text-center mb-6">
-            What We Do
-          </h2>
-          <p className="text-lg leading-relaxed max-w-4xl mx-auto text-center">
-            Central West Medicale Inc. and its people do business with honesty
-            and integrity. We extend our services to all healthcare partners and
-            Filipinos by providing access to global products at the best
-            competitive prices.
-          </p>
-          <p className="text-lg leading-relaxed max-w-4xl mx-auto text-center mt-4">
-            Our people are trained to deliver excellent service at all times. We
-            value the trust of our customers and strive to be the best in the
-            industry. As healthcare is one of the most critical aspects of life,
-            we ensure all our products are effective and conform to all FDA
-            requirements and laboratory tests.
-          </p>
-        </div>
-      </section>
-
       {/* Mission Section */}
       <section id="mission" className="py-16 px-6 bg-white text-gray-800">
         <div className="container mx-auto">
@@ -126,10 +83,12 @@ const About = () => {
             Our Mission
           </h2>
           <p className="text-lg leading-relaxed max-w-4xl mx-auto text-center">
-            Our mission at Central West Marketing is to empower individuals and
-            businesses by providing exceptional healthcare solutions. We deliver
-            high-quality pharmaceutical products, software solutions, and expert
-            services that ensure the best care and health outcomes.
+            "Our mission at FCODES is to make technology work for you. We
+            provide high-quality computer supplies, software solutions, and
+            services that help you navigate the digital world with ease. Whether
+            you’re looking for the right hardware, the perfect software, or
+            expert support, we’re here to guide you every step of the way with
+            friendly, knowledgeable service."
           </p>
         </div>
       </section>
@@ -141,11 +100,12 @@ const About = () => {
             Our Vision
           </h2>
           <p className="text-lg leading-relaxed max-w-4xl mx-auto text-center">
-            Our vision is to be the leading healthcare partner for individuals
-            and institutions across the Philippines. We strive to create a
-            seamless experience by offering a comprehensive range of quality
-            products and services, fostering growth and innovation in the
-            industry.
+            "Our vision is to be the go-to tech partner for both individuals and
+            businesses. We aim to create a seamless tech experience by offering
+            everything you need under one roof—from the latest hardware to
+            cutting-edge software and reliable support. At FCODES, we’re
+            dedicated to helping our customers stay ahead in an ever-evolving
+            digital landscape, fostering growth, and driving innovation."
           </p>
         </div>
       </section>
