@@ -15,8 +15,8 @@ import FeaturedProduct from "./components/FeaturedProduct";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CENTRAL WEST MARKETING",
-  description: "",
+  title: "FCODES",
+  description: "FCODES COMPUTER SUPPLY AND SERVICES",
 };
 
 export default function RootLayout({
