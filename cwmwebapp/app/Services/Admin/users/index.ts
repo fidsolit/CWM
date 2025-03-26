@@ -19,17 +19,17 @@ export const get_all_UsersCount = async () => {
   }
 };
 
-// export const get_all_products = async () => {
-//   try {
-//     const res = await fetch("/api/common/product/getProduct", {
-//       method: "GET",
-//     });
-//     const data = await res.json();
-//     return data;
-//   } catch (error) {
-//     console.log("Error in getting all products (service) =>", error);
-//   }
-// };
+export const get_all_Users = async () => {
+  try {
+    const res = await fetch("/api/Admin/UsersCount/get-all-users", {
+      method: "GET",
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log("Error in getting all users (service) =>", error);
+  }
+};
 
 // export const delete_a_product = async (id: string) => {
 //   try {
