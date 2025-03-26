@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 
 // this is for the users
 
-export const get_all_UsersCount = async (formData: any) => {
+export const get_all_UsersCount = async () => {
   try {
     const res = await fetch(`/api/Admin/UsersCount/get-all-usersCount`, {
       method: "GET",
@@ -10,10 +10,10 @@ export const get_all_UsersCount = async (formData: any) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token")}`,
       },
-      body: JSON.stringify(formData),
     });
     const data = await res.json();
-    return data;
+    console.log("API Response:", data);
+    return data.usersCount;
   } catch (error) {
     console.log("error on getting all users count (service) =>", error);
   }

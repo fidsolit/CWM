@@ -7,6 +7,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { cartReducer } from "@/utils/CartSlice";
 import { bookmarkReducer } from "@/utils/Bookmark";
 import { OrderReducer } from "@/utils/OrderSlice";
+import { UsersCountReducer } from "@/utils/UserCount";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     Cart: cartReducer,
     Bookmark: bookmarkReducer,
     Order: OrderReducer,
+    UsersCount: UsersCountReducer,
   },
 });
 

@@ -27,8 +27,8 @@ import { setNavActive } from "@/utils/AdminNavSlice";
 import { get_all_products } from "../Services/Admin/product";
 // import { get_all_orders } from '@/Services/Admin/order';
 import { get_all_orders } from "../Services/Admin/order";
+// import { get_all_UsersCount } from "../Services/Admin/Users";
 import { get_all_UsersCount } from "../Services/Admin/users";
-
 interface userData {
   email: String;
   role: String;
@@ -58,7 +58,9 @@ export default function Dashboard() {
     "/gettingAllUsersCount",
     get_all_UsersCount
   );
+  console.log("SWR DATA,", usersCountData); // this is for debugging
   if (usersCountData?.success !== true) toast.error(usersCountData?.message);
+  console.log("usersCountData", usersCountData?.data);
 
   const { data: categoryData, isLoading: categoryLoading } = useSWR(
     "/gettingAllCategoriesFOrAdmin",
@@ -93,6 +95,7 @@ export default function Dashboard() {
     productLoading,
     orderData,
     orderLoading,
+    usersCountData,
   ]);
 
   return (

@@ -10,14 +10,16 @@ export default function GettingDatasLength() {
 
   const orderData = useSelector((state: RootState) => state.Admin.Order);
   // const usersData=useSelector((state: RootState) => state.Admin.users);
-  const usersData = useSelector((state: RootState) => state.Admin.usersCount);
+  const usersDataCount = useSelector(
+    (state: RootState) => state.Admin.usersCount
+  );
 
   return [
     {
       icon: "FaUserAlt",
       color: "text-green-600",
       title: "Total Users",
-      count: usersData?.length || 0,
+      count: usersDataCount || 0,
     },
     {
       icon: "GiAbstract010",

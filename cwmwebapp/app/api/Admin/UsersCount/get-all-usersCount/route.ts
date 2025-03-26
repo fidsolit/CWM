@@ -1,7 +1,7 @@
 import connectDB from "@/DB/connectDB";
 import AuthCheck from "@/middleware/AuthCheck";
 import { NextResponse } from "next/server";
-import User from "@/models/User"; // Make sure you have your User model imported
+import User from "@/models/User";
 
 export const dynamic = "force-dynamic";
 
