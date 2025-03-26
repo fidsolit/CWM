@@ -4,8 +4,8 @@ import Cookies from "js-cookie";
 
 export const get_all_UsersCount = async (formData: any) => {
   try {
-    const res = await fetch(`/api/Admin/UsersCount/get-all-users`, {
-      method: "POST",
+    const res = await fetch(`/api/Admin/UsersCount/get-all-usersCount`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token")}`,
@@ -15,7 +15,7 @@ export const get_all_UsersCount = async (formData: any) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.log("Error in Add New Category (service) =>", error);
+    console.log("error on getting all users count (service) =>", error);
   }
 };
 

@@ -27,6 +27,7 @@ import { setNavActive } from "@/utils/AdminNavSlice";
 import { get_all_products } from "../Services/Admin/product";
 // import { get_all_orders } from '@/Services/Admin/order';
 import { get_all_orders } from "../Services/Admin/order";
+import { get_all_UsersCount } from "../Services/Admin/users";
 
 interface userData {
   email: String;
@@ -53,6 +54,12 @@ export default function Dashboard() {
     dispatch(setNavActive("Base"));
   }, [dispatch, Cookies, Router]);
 
+  const { data: usersCountData, isLoading: usersCountLoading } = useSWR(
+    "/gettingAllUsersCount",
+    get_all_UsersCount
+  );
+  if (usersCountData?.success !== true) toast.error(usersCountData?.message);
+
   const { data: categoryData, isLoading: categoryLoading } = useSWR(
     "/gettingAllCategoriesFOrAdmin",
     get_all_categories
@@ -77,7 +84,7 @@ export default function Dashboard() {
     dispatch(setProdLoading(productLoading));
     dispatch(setOrderData(orderData?.data));
     dispatch(setCatLoading(orderLoading));
-    // dispatch(setUserDatacount())
+    dispatch(setUserDatacount(usersCountData));
   }, [
     categoryData,
     dispatch,
