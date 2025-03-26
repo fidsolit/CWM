@@ -2,15 +2,15 @@
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
-// import AdminNavbar from '@/components/AdminNavbar';
+
 import AdminNavbar from "../components/AdminNavbar";
-// import AdminSidebar from '@/components/AdminSidebar';
+
 import AdminSidebar from "../components/AdminSidebar";
-// import SuperComponent from '@/components/SuperComponent';
+
 import SuperComponent from "../components/SuperComponent";
 import { ToastContainer, toast } from "react-toastify";
 import useSWR from "swr";
-// import { get_all_categories } from '@/Services/Admin/category';
+
 import { get_all_categories } from "../Services/Admin/category";
 import { useDispatch } from "react-redux";
 import {
@@ -19,6 +19,7 @@ import {
   setOrderData,
   setProdLoading,
   setProductData,
+  setUserDatacount,
 } from "@/utils/AdminSlice";
 // import Loading from '../loading'; comment first
 import { setNavActive } from "@/utils/AdminNavSlice";
@@ -76,6 +77,7 @@ export default function Dashboard() {
     dispatch(setProdLoading(productLoading));
     dispatch(setOrderData(orderData?.data));
     dispatch(setCatLoading(orderLoading));
+    // dispatch(setUserDatacount())
   }, [
     categoryData,
     dispatch,
