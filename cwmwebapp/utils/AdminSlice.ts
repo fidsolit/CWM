@@ -8,7 +8,7 @@ interface NavState {
   product: any[];
   Order: any[];
   orderLoading: boolean;
-  usersCount: any[];
+  usersCount: number;
 }
 
 const initialState: NavState = {
@@ -18,7 +18,7 @@ const initialState: NavState = {
   product: [],
   Order: [],
   orderLoading: false,
-  usersCount: [],
+  usersCount: 0,
 };
 
 export const Admin = createSlice({

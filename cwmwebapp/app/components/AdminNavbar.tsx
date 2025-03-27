@@ -67,6 +67,9 @@ export default function AdminNavbar() {
             <li onClick={() => dispatch(setNavActive("activeStockIn"))}>
               <button>Stock In</button>
             </li>
+            <li onClick={() => dispatch(setNavActive("activeUsers"))}>
+              <button>Users</button>
+            </li>
           </ul>
         </div>
       </div>

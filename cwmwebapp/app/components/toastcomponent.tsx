@@ -16,6 +16,7 @@ const Toastcomponent = (props: string) => {
       draggable
       pauseOnHover
       theme="light"
+      aria-label="Notifications"
     />
   );
 };
