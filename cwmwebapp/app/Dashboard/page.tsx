@@ -58,9 +58,8 @@ export default function Dashboard() {
     "/gettingAllUsersCount",
     get_all_UsersCount
   );
-  console.log("SWR DATA,", usersCountData); // this is for debugging
+
   if (usersCountData?.success !== true) toast.error(usersCountData?.message);
-  console.log("usersCountData", usersCountData?.data);
 
   const { data: categoryData, isLoading: categoryLoading } = useSWR(
     "/gettingAllCategoriesFOrAdmin",
@@ -78,7 +77,6 @@ export default function Dashboard() {
   );
   if (orderData?.success !== true) toast.error(orderData?.message);
 
-  console.log(orderData?.data);
   useEffect(() => {
     dispatch(setCategoryData(categoryData?.data));
     dispatch(setCatLoading(categoryLoading));

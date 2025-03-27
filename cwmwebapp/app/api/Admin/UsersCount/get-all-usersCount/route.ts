@@ -13,7 +13,7 @@ export async function GET(req: Request) {
     if (isAuthenticated === "admin") {
       const totalUsers = await User.countDocuments();
 
-      console.log("total users by fede", totalUsers);
+      console.log("total users by fede 3 281 2025", totalUsers);
 
       return NextResponse.json({
         success: true,

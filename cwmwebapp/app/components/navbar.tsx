@@ -619,7 +619,7 @@ export default function Navbar() {
   const user = useSelector(
     (state: RootState) => state.User.userData
   ) as User | null;
-  console.log("this is the user data from navbar", user); // this is the user data from navbar {email: "fede@gmail", name: "fede", _id: "61f4
+  // console.log("this is the user data from navbar", user); // this is the user data from navbar {email: "fede@gmail", name: "fede", _id: "61f4
 
   const [scrolled, setScrolled] = useState(false);
 

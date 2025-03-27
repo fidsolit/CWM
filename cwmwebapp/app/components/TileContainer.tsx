@@ -9,7 +9,7 @@ interface tile {
   icon: string;
   color: string;
   title: string;
-  count: number | any[]; // Allow both number and array types
+  count: number; // Allow both number and array types
 }
 
 export default function TileContainer() {

@@ -9,6 +9,7 @@ interface NavState {
   Order: any[];
   orderLoading: boolean;
   usersCount: number;
+  allUsers: any[];
 }
 
 const initialState: NavState = {
@@ -19,6 +20,7 @@ const initialState: NavState = {
   Order: [],
   orderLoading: false,
   usersCount: 0,
+  allUsers: [],
 };
 
 export const Admin = createSlice({
@@ -46,6 +48,9 @@ export const Admin = createSlice({
     setUserDatacount: (state, action) => {
       state.usersCount = action.payload;
     },
+    setAllusers: (state, action) => {
+      state.allUsers = action.payload;
+    },
   },
 });
 
@@ -58,6 +63,7 @@ export const {
   setOrderData,
   setOrderLoading,
   setUserDatacount,
+  setAllusers,
 } = Admin.actions;
 
 export const AdminReducer = Admin.reducer;
