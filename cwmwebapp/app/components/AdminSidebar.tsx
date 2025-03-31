@@ -6,6 +6,7 @@ import { BiCategory } from "react-icons/bi";
 import { IoIosAddCircle } from "react-icons/io";
 import { MdOutlinePendingActions } from "react-icons/md";
 import { GrCompliance } from "react-icons/gr";
+import { FaShieldAlt } from "react-icons/fa";
 import { setNavActive } from "@/utils/AdminNavSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -55,6 +56,11 @@ const NAV_ITEMS: NavItem[] = [
     id: "activeUsers",
     icon: <GrCompliance className="mx-2" />,
     label: "Users",
+  },
+  {
+    id: "activeWarrantyClaims",
+    icon: <FaShieldAlt className="mx-2" />,
+    label: "Warranty Claims",
   },
 ];
 

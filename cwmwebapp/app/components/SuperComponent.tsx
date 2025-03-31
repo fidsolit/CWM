@@ -9,6 +9,7 @@ import CompletedOrderDataTable from "./CompletedOrderDataTable";
 import StockInDataTable from "./StockIn";
 import POSDataTable from "./posTable";
 import UsersDataTable from "./UsersDataTable";
+import WarrantyClaimsDataTable from "./WarrantyClaimsDataTable";
 
 export default function SuperComponent() {
   const navActive = useSelector((state: RootState) => state.AdminNav.ActiveNav);
@@ -29,6 +30,8 @@ export default function SuperComponent() {
       return <POSDataTable />;
     case "activeUsers":
       return <UsersDataTable />;
+    case "activeWarrantyClaims":
+      return <WarrantyClaimsDataTable />;
     default:
       return <TileContainer />;
   }

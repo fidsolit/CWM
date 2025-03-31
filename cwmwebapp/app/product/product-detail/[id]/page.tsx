@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { BiCartAdd } from "react-icons/bi";
 import { RiBookmarkFill } from "react-icons/ri";
 import { DiCodeigniter } from "react-icons/di";
+import { FaShieldAlt } from "react-icons/fa";
 import useSWR from "swr";
 import { ToastContainer, toast } from "react-toastify";
 import { get_product_by_id } from "@/app/Services/Admin/product";
@@ -27,6 +28,15 @@ interface ProductData {
   productCategory: {
     categoryName: string;
     _id: string;
+  };
+  warranty: {
+    type: "standard" | "extended";
+    duration: number;
+    description: string;
+    startDate: string;
+    endDate: string;
+    terms: string[];
+    coverage: string[];
   };
   createdAt: string;
   updatedAt: string;
@@ -176,12 +186,21 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                 <h1 className="text-3xl font-semibold text-black">
                   {prodData?.productName}
                 </h1>
-                {prodData?.productFeatured && (
-                  <p className="px-3 py-2 bg-orange-600 hidden lg:flex font-semibold tracking-widest rounded text-white items-center justify-center">
-                    <DiCodeigniter className="mx-2" />
-                    Featured Product
-                  </p>
-                )}
+                <div className="flex items-center space-x-4">
+                  {prodData?.productFeatured && (
+                    <p className="px-3 py-2 bg-orange-600 hidden lg:flex font-semibold tracking-widest rounded text-white items-center justify-center">
+                      <DiCodeigniter className="mx-2" />
+                      Featured Product
+                    </p>
+                  )}
+                  <Link
+                    href="/warranty"
+                    className="px-3 py-2 bg-blue-600 hidden lg:flex font-semibold tracking-widest rounded text-white items-center justify-center hover:bg-blue-700 transition-colors"
+                  >
+                    <FaShieldAlt className="mx-2" />
+                    Warranty Info
+                  </Link>
+                </div>
               </div>
               <p className="py-2 lg:h-40 w-full">
                 {prodData?.productDescription ||
@@ -190,6 +209,61 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               <h1 className="text-3xl font-semibold text-black py-2">
                 Php {`${prodData?.productPrice}` || "N/A"}
               </h1>
+
+              {/* Warranty Information */}
+              {prodData?.warranty && (
+                <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
+                  <h2 className="text-xl font-semibold mb-3 flex items-center">
+                    <FaShieldAlt className="mr-2 text-blue-600" />
+                    Warranty Information
+                  </h2>
+                  <div className="space-y-2">
+                    <p className="text-gray-700">
+                      <span className="font-semibold">Type:</span>{" "}
+                      {prodData.warranty.type.charAt(0).toUpperCase() +
+                        prodData.warranty.type.slice(1)}{" "}
+                      Warranty
+                    </p>
+                    <p className="text-gray-700">
+                      <span className="font-semibold">Duration:</span>{" "}
+                      {prodData.warranty.duration} months
+                    </p>
+                    {prodData.warranty.description && (
+                      <p className="text-gray-700">
+                        <span className="font-semibold">Description:</span>{" "}
+                        {prodData.warranty.description}
+                      </p>
+                    )}
+                    {prodData.warranty.coverage &&
+                      prodData.warranty.coverage.length > 0 && (
+                        <div>
+                          <span className="font-semibold">Coverage:</span>
+                          <ul className="list-disc list-inside ml-4 mt-1">
+                            {prodData.warranty.coverage.map((item, index) => (
+                              <li key={index} className="text-gray-700">
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    {prodData.warranty.terms &&
+                      prodData.warranty.terms.length > 0 && (
+                        <div>
+                          <span className="font-semibold">Terms:</span>
+                          <ul className="list-disc list-inside ml-4 mt-1">
+                            {prodData.warranty.terms.map((item, index) => (
+                              <li key={index} className="text-gray-700">
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                  </div>
+                </div>
+              )}
+
               <div className="w-full py-2 lg:flex-row flex-col flex">
                 <button
                   onClick={AddToCart}

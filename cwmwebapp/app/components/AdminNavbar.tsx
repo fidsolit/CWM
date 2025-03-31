@@ -70,6 +70,9 @@ export default function AdminNavbar() {
             <li onClick={() => dispatch(setNavActive("activeUsers"))}>
               <button>Users</button>
             </li>
+            <li onClick={() => dispatch(setNavActive("activeWarrantyClaims"))}>
+              <button>Warranty Claims</button>
+            </li>
           </ul>
         </div>
       </div>

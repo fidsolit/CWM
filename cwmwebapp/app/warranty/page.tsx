@@ -29,16 +29,16 @@ const Warranty = () => {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-4">Hardware Products</h3>
               <ul className="space-y-2">
-                <li>• 1-year limited warranty on all hardware components</li>
+                <li>• 3-month warranty on all hardware components</li>
                 <li>• Coverage for manufacturing defects</li>
-                <li>• Free replacement of defective parts</li>
+                <li>• 7 days Free replacement of defective parts</li>
                 <li>• Technical support included</li>
               </ul>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-4">Software Products</h3>
               <ul className="space-y-2">
-                <li>• 90-day warranty on software licenses</li>
+                <li>• 60-day warranty on software licenses</li>
                 <li>• Free updates and patches</li>
                 <li>• Technical support assistance</li>
                 <li>• License replacement if needed</li>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 // import { storage } from "@/utils/Firebase";
 import { storage } from "@/utils/Firebase";
@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 import { useSWRConfig } from "swr";
 // import { add_new_product } from '../Services/Admin/product';
 import { add_new_product } from "@/app/Services/Admin/product";
+import { motion } from "framer-motion";
 
 type Inputs = {
   name: string;
@@ -86,12 +87,57 @@ interface userData {
   name: String;
 }
 
+interface ProductData {
+  name: string;
+  brand: string;
+  description: string;
+  category: string;
+  sellingPrice: number;
+  unitPrice: number;
+  availableQty: number;
+  dosageForm: string;
+  strength: string;
+  sku: string;
+  expirationDate: string;
+  batchNumber: string;
+  storageConditions: string;
+  warranty: {
+    type: "standard" | "extended";
+    duration: number;
+    description: string;
+    terms: string[];
+    coverage: string[];
+  };
+}
+
 export default function AddProduct() {
   const [loader, setLoader] = useState(false);
   const Router = useRouter();
   const category = useSelector((state: RootState) => state.Admin.category) as
     | CategoryData[]
     | undefined;
+  const [productData, setProductData] = useState<ProductData>({
+    name: "",
+    brand: "",
+    description: "",
+    category: "",
+    sellingPrice: 0,
+    unitPrice: 0,
+    availableQty: 0,
+    dosageForm: "",
+    strength: "",
+    sku: "",
+    expirationDate: "",
+    batchNumber: "",
+    storageConditions: "",
+    warranty: {
+      type: "standard",
+      duration: 12,
+      description: "",
+      terms: [],
+      coverage: [],
+    },
+  });
 
   useEffect(() => {
     const user: userData | null = JSON.parse(
@@ -109,6 +155,51 @@ export default function AddProduct() {
   } = useForm<Inputs>({
     criteriaMode: "all",
   });
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    if (name.startsWith("warranty.")) {
+      const warrantyField = name.split(".")[1];
+      setProductData((prev) => ({
+        ...prev,
+        warranty: {
+          ...prev.warranty,
+          [warrantyField]: value,
+        },
+      }));
+    } else {
+      setProductData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleWarrantyTermsChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const terms = e.target.value.split("\n").filter((term) => term.trim());
+    setProductData((prev) => ({
+      ...prev,
+      warranty: {
+        ...prev.warranty,
+        terms,
+      },
+    }));
+  };
+
+  const handleWarrantyCoverageChange = (
+    e: ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const coverage = e.target.value.split("\n").filter((item) => item.trim());
+    setProductData((prev) => ({
+      ...prev,
+      warranty: {
+        ...prev.warranty,
+        coverage,
+      },
+    }));
+  };
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setLoader(true);
@@ -332,6 +423,102 @@ export default function AddProduct() {
                   equal to 1MB.
                 </span>
               )}
+            </div>
+
+            {/* Warranty Section */}
+            <div className="mt-6 border-t pt-6">
+              <h3 className="text-xl font-semibold text-indigo-600 mb-4">
+                Warranty Information
+              </h3>
+
+              <div className="space-y-4">
+                <div className="relative">
+                  <label
+                    htmlFor="warranty.type"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Warranty Type
+                  </label>
+                  <select
+                    id="warranty.type"
+                    name="warranty.type"
+                    value={productData.warranty.type}
+                    onChange={handleChange}
+                    className="border border-indigo-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-sm"
+                  >
+                    <option value="standard">Standard Warranty</option>
+                    <option value="extended">Extended Warranty</option>
+                  </select>
+                </div>
+
+                <div className="relative">
+                  <label
+                    htmlFor="warranty.duration"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Warranty Duration (months)
+                  </label>
+                  <input
+                    type="number"
+                    id="warranty.duration"
+                    name="warranty.duration"
+                    value={productData.warranty.duration}
+                    onChange={handleChange}
+                    className="border border-indigo-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-sm"
+                  />
+                </div>
+
+                <div className="relative">
+                  <label
+                    htmlFor="warranty.description"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Warranty Description
+                  </label>
+                  <textarea
+                    id="warranty.description"
+                    name="warranty.description"
+                    value={productData.warranty.description}
+                    onChange={handleChange}
+                    rows={3}
+                    className="border border-indigo-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-sm"
+                  />
+                </div>
+
+                <div className="relative">
+                  <label
+                    htmlFor="warranty.terms"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Warranty Terms (one per line)
+                  </label>
+                  <textarea
+                    id="warranty.terms"
+                    value={productData.warranty.terms.join("\n")}
+                    onChange={handleWarrantyTermsChange}
+                    rows={4}
+                    className="border border-indigo-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-sm"
+                    placeholder="Enter each term on a new line"
+                  />
+                </div>
+
+                <div className="relative">
+                  <label
+                    htmlFor="warranty.coverage"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Warranty Coverage (one per line)
+                  </label>
+                  <textarea
+                    id="warranty.coverage"
+                    value={productData.warranty.coverage.join("\n")}
+                    onChange={handleWarrantyCoverageChange}
+                    rows={4}
+                    className="border border-indigo-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-sm"
+                    placeholder="Enter each coverage item on a new line"
+                  />
+                </div>
+              </div>
             </div>
 
             <button className="btn btn-block mt-3">Done !</button>

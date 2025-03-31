@@ -27,6 +27,13 @@ type Inputs = {
   price: Number;
   quantity: Number;
   categoryID: string;
+  warranty: {
+    type: "standard" | "extended";
+    duration: number;
+    description: string;
+    terms: string;
+    coverage: string;
+  };
 };
 
 type ProductData = {
@@ -39,6 +46,13 @@ type ProductData = {
   productQuantity: Number;
   productFeatured: Boolean;
   productCategory: string;
+  warranty: {
+    type: "standard" | "extended";
+    duration: number;
+    description: string;
+    terms: string[];
+    coverage: string[];
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -106,65 +120,91 @@ export default function Page({
     criteriaMode: "all",
   });
 
-  const setValueofFormData = () => {
+  useEffect(() => {
     if (prodData) {
       setValue("name", prodData?.productName);
       setValue("description", prodData?.productDescription);
       setValue("slug", prodData?.productSlug);
       setValue("feature", prodData?.productFeatured);
-      setValue("categoryID", prodData?.productCategory);
       setValue("quantity", prodData?.productQuantity);
       setValue("price", prodData?.productPrice);
+      setValue("warranty.type", prodData?.warranty?.type || "standard");
+      setValue("warranty.duration", prodData?.warranty?.duration || 12);
+      setValue("warranty.description", prodData?.warranty?.description || "");
+      setValue(
+        "warranty.terms",
+        Array.isArray(prodData?.warranty?.terms)
+          ? prodData.warranty.terms.join("\n")
+          : ""
+      );
+      setValue(
+        "warranty.coverage",
+        Array.isArray(prodData?.warranty?.coverage)
+          ? prodData.warranty.coverage.join("\n")
+          : ""
+      );
     }
-  };
-
-  useEffect(() => {
-    if (prodData) setValueofFormData();
-  }, [prodData]);
+  }, [prodData, setValue]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    setLoader(false);
-
-    const updatedData: Inputs = {
-      _id: params.id,
-      name:
-        data.name !== prodData?.productName ? data.name : prodData?.productName,
-      description:
-        data.description !== prodData?.productDescription
-          ? data.description
-          : prodData?.productDescription,
-      slug:
-        data.slug !== prodData?.productSlug ? data.slug : prodData?.productSlug,
-      feature:
-        data.feature !== prodData?.productFeatured
-          ? data.feature
-          : prodData?.productFeatured,
-      quantity:
-        data.quantity !== prodData?.productQuantity
-          ? data.quantity
-          : prodData?.productQuantity,
-      price:
-        data.price !== prodData?.productPrice
-          ? data.price
-          : prodData?.productPrice,
-      categoryID:
-        data.categoryID !== prodData?.productCategory
+    setLoader(true);
+    try {
+      const formData = {
+        productName:
+          data.name !== prodData?.productName
+            ? data.name
+            : prodData?.productName,
+        productDescription:
+          data.description !== prodData?.productDescription
+            ? data.description
+            : prodData?.productDescription,
+        productSlug:
+          data.slug !== prodData?.productSlug
+            ? data.slug
+            : prodData?.productSlug,
+        productFeatured:
+          data.feature !== prodData?.productFeatured
+            ? data.feature
+            : prodData?.productFeatured,
+        productQuantity:
+          data.quantity !== prodData?.productQuantity
+            ? data.quantity
+            : prodData?.productQuantity,
+        productPrice:
+          data.price !== prodData?.productPrice
+            ? data.price
+            : prodData?.productPrice,
+        productCategory: data.categoryID
           ? data.categoryID
           : prodData?.productCategory,
-    };
+        warranty: {
+          type: data.warranty?.type || prodData?.warranty?.type || "standard",
+          duration:
+            data.warranty?.duration || prodData?.warranty?.duration || 12,
+          description:
+            data.warranty?.description || prodData?.warranty?.description || "",
+          terms: (data.warranty?.terms || "")
+            .split("\n")
+            .filter((term) => term.trim()),
+          coverage: (data.warranty?.coverage || "")
+            .split("\n")
+            .filter((item) => item.trim()),
+        },
+      };
 
-    console.log(updatedData);
-
-    const res = await update_a_product(updatedData);
-    if (res?.success) {
-      toast.success(res?.message);
-      dispatch(setNavActive("Base"));
-      setTimeout(() => {
-        Router.push("/Dashboard");
-      }, 2000);
-      setLoader(false);
-    } else {
-      toast.error(res?.message);
+      const res = await update_a_product(formData);
+      if (res?.success) {
+        toast.success(res?.message);
+        dispatch(setNavActive("Base"));
+        setTimeout(() => {
+          Router.push("/Dashboard");
+        }, 2000);
+      } else {
+        toast.error(res?.message);
+        setLoader(false);
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again later.");
       setLoader(false);
     }
   };
@@ -358,12 +398,104 @@ export default function Page({
               </div>
             )}
 
+            {/* Warranty Section */}
+            <div className="mt-6 border-t pt-6">
+              <h3 className="text-xl font-semibold text-indigo-600 mb-4">
+                Warranty Information
+              </h3>
+
+              <div className="space-y-4">
+                <div className="relative">
+                  <label
+                    htmlFor="warranty.type"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Warranty Type
+                  </label>
+                  <select
+                    id="warranty.type"
+                    {...register("warranty.type")}
+                    className="border border-indigo-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-sm"
+                  >
+                    <option value="standard">Standard Warranty</option>
+                    <option value="extended">Extended Warranty</option>
+                  </select>
+                </div>
+
+                <div className="relative">
+                  <label
+                    htmlFor="warranty.duration"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Warranty Duration (months)
+                  </label>
+                  <input
+                    type="number"
+                    id="warranty.duration"
+                    {...register("warranty.duration")}
+                    className="border border-indigo-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-sm"
+                  />
+                </div>
+
+                <div className="relative">
+                  <label
+                    htmlFor="warranty.description"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Warranty Description
+                  </label>
+                  <textarea
+                    id="warranty.description"
+                    {...register("warranty.description")}
+                    rows={3}
+                    className="border border-indigo-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-sm"
+                  />
+                </div>
+
+                <div className="relative">
+                  <label
+                    htmlFor="warranty.terms"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Warranty Terms (one per line)
+                  </label>
+                  <textarea
+                    id="warranty.terms"
+                    {...register("warranty.terms")}
+                    rows={4}
+                    className="border border-indigo-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-sm"
+                    placeholder="Enter each term on a new line"
+                  />
+                </div>
+
+                <div className="relative">
+                  <label
+                    htmlFor="warranty.coverage"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Warranty Coverage (one per line)
+                  </label>
+                  <textarea
+                    id="warranty.coverage"
+                    {...register("warranty.coverage")}
+                    rows={4}
+                    className="border border-indigo-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-sm"
+                    placeholder="Enter each coverage item on a new line"
+                  />
+                </div>
+              </div>
+            </div>
+
             <button className="btn btn-block mt-3">Done !</button>
           </form>
         </div>
       )}
 
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        aria-label="Notifications"
+      />
     </div>
   );
 }
