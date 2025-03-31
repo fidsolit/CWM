@@ -82,6 +82,14 @@ export default function Footer() {
                     </Link>
                   </li>
                   <li>
+                    <Link
+                      href="/warranty"
+                      className="text-gray-300 hover:text-white font-semibold transition-colors"
+                    >
+                      Warranty
+                    </Link>
+                  </li>
+                  <li>
                     <a
                       href="https://blog.creative-tim.com"
                       className="text-gray-300 hover:text-white font-semibold transition-colors"
