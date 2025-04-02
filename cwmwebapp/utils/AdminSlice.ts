@@ -10,6 +10,8 @@ interface NavState {
   orderLoading: boolean;
   usersCount: number;
   allUsers: any[];
+  warrantyClaims: any[];
+  warrantyClaimsLoading: boolean;
 }
 
 const initialState: NavState = {
@@ -21,6 +23,8 @@ const initialState: NavState = {
   orderLoading: false,
   usersCount: 0,
   allUsers: [],
+  warrantyClaims: [],
+  warrantyClaimsLoading: false,
 };
 
 export const Admin = createSlice({
@@ -51,6 +55,12 @@ export const Admin = createSlice({
     setAllusers: (state, action) => {
       state.allUsers = action.payload;
     },
+    setWarrantyClaims: (state, action) => {
+      state.warrantyClaims = action.payload;
+    },
+    setWarrantyClaimsLoading: (state, action) => {
+      state.warrantyClaimsLoading = action.payload;
+    },
   },
 });
 
@@ -64,6 +74,8 @@ export const {
   setOrderLoading,
   setUserDatacount,
   setAllusers,
+  setWarrantyClaims,
+  setWarrantyClaimsLoading,
 } = Admin.actions;
 
 export const AdminReducer = Admin.reducer;

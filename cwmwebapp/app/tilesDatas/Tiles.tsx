@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 import { useSelector } from "react-redux";
 import { RootState } from "../../Store/store";
 
@@ -12,6 +12,9 @@ export default function GettingDatasLength() {
   // const usersData=useSelector((state: RootState) => state.Admin.users);
   const usersDataCount = useSelector(
     (state: RootState) => state.Admin.usersCount
+  );
+  const warrantyClaims = useSelector(
+    (state: RootState) => state.Admin.warrantyClaims
   );
 
   return [
@@ -50,6 +53,12 @@ export default function GettingDatasLength() {
       color: "text-orange-600",
       title: "Month Statistics",
       count: +100,
+    },
+    {
+      icon: "FaTools",
+      color: "text-red-600",
+      title: "Warranty Claims",
+      count: warrantyClaims?.length || 0,
     },
   ];
 }
