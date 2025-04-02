@@ -1,19 +1,32 @@
 import mongoose from "mongoose";
-import Category from "./Category";
 
 const ProductSchema = new mongoose.Schema(
   {
-    productName: String,
-    productDescription: String,
-    productImage: String,
-    productSlug: String,
-    productPrice: Number,
-    productQuantity: Number,
-    productFeatured: Boolean,
+    productName: {
+      type: String,
+      required: true,
+    },
+    productImage: {
+      type: String,
+      required: true,
+    },
+    productPrice: {
+      type: Number,
+      required: true,
+    },
+    productDescription: {
+      type: String,
+      required: true,
+    },
     productCategory: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Categories",
+      ref: "Category",
       required: true,
+    },
+    productStock: {
+      type: Number,
+      required: true,
+      default: 0,
     },
     warranty: {
       type: {
@@ -23,19 +36,17 @@ const ProductSchema = new mongoose.Schema(
       },
       duration: {
         type: Number,
-        default: 12, // months
+        default: 12,
       },
       description: String,
-      startDate: Date,
-      endDate: Date,
       terms: [String],
       coverage: [String],
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-const Product =
-  mongoose.models.Products || mongoose.model("Products", ProductSchema);
-
-export default Product;
+export default mongoose.models.Product ||
+  mongoose.model("Product", ProductSchema);
