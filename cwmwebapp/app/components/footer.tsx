@@ -11,10 +11,10 @@ export default function Footer() {
   const [currentLogo, setCurrentLogo] = useState(0);
 
   const logos = [
-    { src: "/companylogos/company1.png", alt: "Rose pharmacy" },
-    { src: "/companylogos/company2.png", alt: "Mercury drug" },
-    { src: "/companylogos/company3.jpg", alt: "threesixty pharmacy" },
-    { src: "/companylogos/company4.png", alt: "watsons" },
+    { src: "/companylogos/company1.jpg", alt: "com1" },
+    { src: "/companylogos/company2.jpg", alt: "comp2" },
+    { src: "/companylogos/company3.jpg", alt: "comp3" },
+    { src: "/companylogos/company4.jpg", alt: "comp4" },
   ];
 
   // Automatically change logos every 4 seconds
@@ -79,14 +79,6 @@ export default function Footer() {
                       className="text-gray-300 hover:text-white font-semibold transition-colors"
                     >
                       About Us
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/warranty"
-                      className="text-gray-300 hover:text-white font-semibold transition-colors"
-                    >
-                      Warranty
                     </Link>
                   </li>
                   <li>
