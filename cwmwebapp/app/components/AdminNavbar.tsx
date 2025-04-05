@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { FaCashRegister } from "react-icons/fa";
 
 export default function AdminNavbar() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function AdminNavbar() {
   };
 
   return (
-    <div className="navbar  dark:text-black bg-red">
+    <div className="navbar dark:text-black bg-red">
       <div className="flex-1">
         <div className="dropdown md:hidden">
           <label tabIndex={0} className="btn btn-active btn-circle">
@@ -73,10 +74,23 @@ export default function AdminNavbar() {
             <li onClick={() => dispatch(setNavActive("activeWarrantyClaims"))}>
               <button>Warranty Claims</button>
             </li>
+            <li onClick={() => dispatch(setNavActive("activePOS"))}>
+              <button className="flex items-center gap-2">
+                <FaCashRegister className="text-green-600" />
+                <span>POS System</span>
+              </button>
+            </li>
           </ul>
         </div>
       </div>
-      <div className="flex-none">
+      <div className="flex-none gap-2">
+        <button
+          onClick={() => dispatch(setNavActive("activePOS"))}
+          className="btn btn-primary gap-2 hidden md:flex"
+        >
+          <FaCashRegister className="text-xl" />
+          <span>POS System</span>
+        </button>
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 relative rounded-full">

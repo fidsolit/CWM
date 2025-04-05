@@ -7,7 +7,7 @@ import CategoryDataTable from "./CategoryDataTable";
 import PendingOrdersDataTable from "./PendingOrdersDataTable";
 import CompletedOrderDataTable from "./CompletedOrderDataTable";
 import StockInDataTable from "./StockIn";
-import POSDataTable from "./posTable";
+import POSSystem from "./POSSystem";
 import UsersDataTable from "./UsersDataTable";
 import WarrantyClaimsDataTable from "./WarrantyClaimsDataTable";
 import { fetchWarrantyClaims } from "@/utils/warrantyClaimsActions";
@@ -34,7 +34,7 @@ export default function SuperComponent() {
     case "activeStockIn":
       return <StockInDataTable />;
     case "activePOS":
-      return <POSDataTable />;
+      return <POSSystem />;
     case "activeUsers":
       return <UsersDataTable />;
     case "activeWarrantyClaims":
