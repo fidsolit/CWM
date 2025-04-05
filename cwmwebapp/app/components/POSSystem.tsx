@@ -9,6 +9,10 @@ import {
   FaShoppingCart,
   FaTrash,
   FaCashRegister,
+  FaFilter,
+  FaTimes,
+  FaChevronDown,
+  FaChevronUp,
 } from "react-icons/fa";
 import { toast } from "react-toastify";
 
@@ -37,6 +41,8 @@ export default function POSSystem() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [categories, setCategories] = useState<string[]>([]);
+  const [showFilters, setShowFilters] = useState(false);
+  const [viewMode, setViewMode] = useState<"products" | "cart">("products");
 
   // Filter products based on search term and category
   useEffect(() => {
@@ -157,154 +163,282 @@ export default function POSSystem() {
     setCart([]);
   };
 
-  return (
-    <div className="flex flex-col md:flex-row h-[calc(100vh-64px)]">
-      {/* Products Section */}
-      <div className="w-full md:w-2/3 p-4 overflow-y-auto">
-        <div className="mb-4 flex flex-col md:flex-row gap-4">
-          <div className="relative flex-grow">
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="w-full p-2 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <FaSearch className="absolute left-3 top-3 text-gray-400" />
-          </div>
-          <select
-            className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option value="all">All Categories</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
+  // Toggle view mode
+  const toggleViewMode = () => {
+    setViewMode(viewMode === "products" ? "cart" : "products");
+  };
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredProducts.map((product) => (
-            <div
-              key={product._id}
-              className="border rounded-lg p-4 hover:shadow-lg transition-shadow"
-            >
-              <div className="relative h-40 mb-2">
-                <Image
-                  src={product.productImage || "/placeholder.png"}
-                  alt={product.productName}
-                  fill
-                  className="object-contain rounded-md"
-                />
-              </div>
-              <h3 className="font-semibold text-lg">{product.productName}</h3>
-              <p className="text-gray-600 text-sm mb-2">
-                {product.productCategory.categoryName}
-              </p>
-              <div className="flex justify-between items-center">
-                <span className="font-bold text-green-600">
-                  ₱{Number(product.productPrice).toFixed(2)}
+  return (
+    <div className="flex flex-col h-[calc(100vh-64px)] bg-gray-50">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 shadow-md">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Point of Sale</h1>
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <FaShoppingCart className="text-2xl" />
+              {cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                  {cart.length}
                 </span>
-                <span className="text-sm text-gray-500">
-                  Stock: {product.productQuantity}
-                </span>
-              </div>
-              <button
-                onClick={() => addToCart(product)}
-                className="w-full mt-2 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
-                disabled={product.productQuantity <= 0}
-              >
-                {product.productQuantity > 0 ? "Add to Cart" : "Out of Stock"}
-              </button>
+              )}
             </div>
-          ))}
+            <button
+              onClick={toggleViewMode}
+              className="md:hidden bg-white text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+            >
+              {viewMode === "products" ? "View Cart" : "View Products"}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Cart Section */}
-      <div className="w-full md:w-1/3 bg-gray-100 p-4 flex flex-col">
-        <div className="flex items-center gap-2 mb-4">
-          <FaShoppingCart className="text-xl text-blue-600" />
-          <h2 className="text-xl font-bold">Shopping Cart</h2>
-        </div>
-
-        {cart.length === 0 ? (
-          <div className="flex-grow flex items-center justify-center">
-            <p className="text-gray-500">Your cart is empty</p>
-          </div>
-        ) : (
-          <>
-            <div className="flex-grow overflow-y-auto">
-              {cart.map((item) => (
-                <div
-                  key={item._id}
-                  className="bg-white p-3 rounded-lg mb-2 shadow-sm"
+      {/* Main Content */}
+      <div className="flex flex-col md:flex-row flex-grow overflow-hidden">
+        {/* Products Section - Hidden on mobile when in cart view */}
+        <div
+          className={`w-full md:w-2/3 p-4 overflow-y-auto ${
+            viewMode === "cart" ? "hidden md:block" : "block"
+          }`}
+        >
+          {/* Search and Filter Bar */}
+          <div className="bg-white rounded-lg shadow-sm p-4 mb-4">
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="relative flex-grow">
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  className="w-full p-3 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <FaSearch className="absolute left-3 top-3.5 text-gray-400" />
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="p-3 border border-gray-200 rounded-lg flex items-center gap-2 bg-white hover:bg-gray-50"
                 >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-semibold">{item.productName}</h3>
-                      <p className="text-sm text-gray-600">
-                        ₱{Number(item.productPrice).toFixed(2)}
-                      </p>
-                    </div>
+                  <FaFilter className="text-blue-600" />
+                  <span className="hidden md:inline">Filter</span>
+                  {showFilters ? <FaChevronUp /> : <FaChevronDown />}
+                </button>
+              </div>
+            </div>
+
+            {/* Filter Options */}
+            {showFilters && (
+              <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-medium">Categories</h3>
+                  <button
+                    onClick={() => setSelectedCategory("all")}
+                    className="text-xs text-blue-600 hover:underline"
+                  >
+                    Clear
+                  </button>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => setSelectedCategory("all")}
+                    className={`px-3 py-1 rounded-full text-sm ${
+                      selectedCategory === "all"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                    }`}
+                  >
+                    All
+                  </button>
+                  {categories.map((category) => (
                     <button
-                      onClick={() => removeFromCart(item._id)}
-                      className="text-red-500 hover:text-red-700"
+                      key={category}
+                      onClick={() => setSelectedCategory(category)}
+                      className={`px-3 py-1 rounded-full text-sm ${
+                        selectedCategory === category
+                          ? "bg-blue-600 text-white"
+                          : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                      }`}
                     >
-                      <FaTrash />
+                      {category}
                     </button>
-                  </div>
-                  <div className="flex justify-between items-center mt-2">
-                    <div className="flex items-center border rounded">
-                      <button
-                        className="px-2 py-1 bg-gray-200 hover:bg-gray-300"
-                        onClick={() =>
-                          updateQuantity(
-                            item._id,
-                            Math.max(1, item.quantity - 1)
-                          )
-                        }
-                      >
-                        -
-                      </button>
-                      <span className="px-4 py-1">{item.quantity}</span>
-                      <button
-                        className="px-2 py-1 bg-gray-200 hover:bg-gray-300"
-                        onClick={() =>
-                          updateQuantity(item._id, item.quantity + 1)
-                        }
-                      >
-                        +
-                      </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Products Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredProducts.map((product) => (
+              <div
+                key={product._id}
+                className="bg-white border border-gray-100 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+              >
+                <div className="relative h-48 bg-gray-50">
+                  <Image
+                    src={product.productImage || "/placeholder.png"}
+                    alt={product.productName}
+                    fill
+                    className="object-contain p-2"
+                  />
+                  {product.productQuantity <= 0 && (
+                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                      <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                        Out of Stock
+                      </span>
                     </div>
-                    <span className="font-semibold">
-                      ₱{item.subtotal.toFixed(2)}
+                  )}
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg truncate">
+                    {product.productName}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-2">
+                    {product.productCategory.categoryName}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold text-green-600 text-xl">
+                      ₱{Number(product.productPrice).toFixed(2)}
+                    </span>
+                    <span className="text-sm text-gray-500">
+                      Stock: {product.productQuantity}
                     </span>
                   </div>
+                  <button
+                    onClick={() => addToCart(product)}
+                    className={`w-full mt-3 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors ${
+                      product.productQuantity > 0
+                        ? "bg-blue-600 hover:bg-blue-700 text-white"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    }`}
+                    disabled={product.productQuantity <= 0}
+                  >
+                    <FaShoppingCart />
+                    <span>
+                      {product.productQuantity > 0
+                        ? "Add to Cart"
+                        : "Out of Stock"}
+                    </span>
+                  </button>
                 </div>
-              ))}
-            </div>
-
-            <div className="mt-4 pt-4 border-t">
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-lg font-semibold">Total:</span>
-                <span className="text-xl font-bold text-green-600">
-                  ₱{calculateTotal().toFixed(2)}
-                </span>
               </div>
-              <button
-                onClick={handleCheckout}
-                className="w-full bg-green-500 text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-green-600 transition-colors"
-              >
-                <FaCashRegister />
-                <span>Checkout</span>
-              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Cart Section - Hidden on mobile when in products view */}
+        <div
+          className={`w-full md:w-1/3 bg-white border-l border-gray-200 flex flex-col ${
+            viewMode === "products" ? "hidden md:flex" : "flex"
+          }`}
+        >
+          <div className="p-4 border-b border-gray-200">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <FaShoppingCart className="text-xl text-blue-600" />
+                <h2 className="text-xl font-bold">Shopping Cart</h2>
+              </div>
+              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-medium">
+                {cart.length} {cart.length === 1 ? "item" : "items"}
+              </span>
             </div>
-          </>
-        )}
+          </div>
+
+          {cart.length === 0 ? (
+            <div className="flex-grow flex flex-col items-center justify-center p-8 text-center">
+              <FaShoppingCart className="text-5xl text-gray-300 mb-4" />
+              <p className="text-gray-500 text-lg">Your cart is empty</p>
+              <p className="text-gray-400 text-sm mt-2">
+                Add some products to get started
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="flex-grow overflow-y-auto p-4">
+                {cart.map((item) => (
+                  <div
+                    key={item._id}
+                    className="bg-gray-50 p-3 rounded-lg mb-3 shadow-sm"
+                  >
+                    <div className="flex gap-3">
+                      <div className="relative w-16 h-16 bg-white rounded-md overflow-hidden">
+                        <Image
+                          src={item.productImage || "/placeholder.png"}
+                          alt={item.productName}
+                          fill
+                          className="object-contain p-1"
+                        />
+                      </div>
+                      <div className="flex-grow">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h3 className="font-semibold">
+                              {item.productName}
+                            </h3>
+                            <p className="text-sm text-gray-600">
+                              {item.productCategory.categoryName}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => removeFromCart(item._id)}
+                            className="text-red-500 hover:text-red-700"
+                          >
+                            <FaTrash />
+                          </button>
+                        </div>
+                        <div className="flex justify-between items-center mt-2">
+                          <div className="flex items-center border border-gray-200 rounded bg-white">
+                            <button
+                              className="px-2 py-1 hover:bg-gray-100"
+                              onClick={() =>
+                                updateQuantity(
+                                  item._id,
+                                  Math.max(1, item.quantity - 1)
+                                )
+                              }
+                            >
+                              -
+                            </button>
+                            <span className="px-4 py-1 border-x border-gray-200">
+                              {item.quantity}
+                            </span>
+                            <button
+                              className="px-2 py-1 hover:bg-gray-100"
+                              onClick={() =>
+                                updateQuantity(item._id, item.quantity + 1)
+                              }
+                            >
+                              +
+                            </button>
+                          </div>
+                          <span className="font-semibold text-green-600">
+                            ₱{item.subtotal.toFixed(2)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-4 border-t border-gray-200 bg-gray-50">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-lg font-semibold">Total:</span>
+                  <span className="text-2xl font-bold text-green-600">
+                    ₱{calculateTotal().toFixed(2)}
+                  </span>
+                </div>
+                <button
+                  onClick={handleCheckout}
+                  className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:from-green-600 hover:to-green-700 transition-colors shadow-md"
+                >
+                  <FaCashRegister className="text-xl" />
+                  <span className="font-medium">Checkout</span>
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
