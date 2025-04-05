@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/Store/store";
 import TileContainer from "./TileContainer";
 import ProductDataTable from "./ProductDataTable";
@@ -10,9 +10,16 @@ import StockInDataTable from "./StockIn";
 import POSDataTable from "./posTable";
 import UsersDataTable from "./UsersDataTable";
 import WarrantyClaimsDataTable from "./WarrantyClaimsDataTable";
+import { fetchWarrantyClaims } from "@/utils/warrantyClaimsActions";
 
 export default function SuperComponent() {
+  const dispatch = useDispatch();
   const navActive = useSelector((state: RootState) => state.AdminNav.ActiveNav);
+
+  useEffect(() => {
+    fetchWarrantyClaims(dispatch);
+  }, [dispatch]);
+
   switch (navActive) {
     case "Base":
       return <TileContainer />;
