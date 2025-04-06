@@ -1,49 +1,87 @@
 import mongoose from "mongoose";
-import User from "./User";
-import Product from "./Product";
 
-const OrderSchema = new mongoose.Schema(
+const orderSchema = new mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+    orderNumber: {
+      type: String,
       required: true,
+      unique: true,
     },
-    orderItems: [
+    items: [
       {
-        qty: { type: Number, required: true },
-        product: {
+        productId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Products",
+          ref: "Product",
+          required: true,
+        },
+        productName: {
+          type: String,
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        subtotal: {
+          type: Number,
+          required: true,
         },
       },
     ],
-    shippingAddress: {
-      fullName: { type: String, required: true },
-      address: { type: String, required: true },
-      city: { type: String, required: true },
-      postalCode: { type: Number, required: true },
-      country: { type: String, required: true },
+    totalAmount: {
+      type: Number,
+      required: true,
     },
-    paymentMethod: { type: String, required: true, default: "Paypal" },
-    paymentResult: {
-      id: String,
-      status: String,
-      update_time: String,
-      email_address: String,
+    status: {
+      type: String,
+      enum: ["pending", "completed", "cancelled"],
+      default: "pending",
     },
-    itemsPrice: { type: Number, required: true },
-    shippingPrice: { type: Number, required: true },
-    taxPrice: { type: Number, required: true },
-    totalPrice: { type: Number, required: true },
-    isPaid: { type: Boolean, default: false },
-    paidAt: { type: Date },
-    isDelivered: { type: Boolean, default: false },
-    deliveredAt: { type: Date },
+    paymentMethod: {
+      type: String,
+      enum: ["cash", "card", "gcash"],
+      default: "cash",
+    },
+    cashier: {
+      type: String,
+      required: true,
+    },
+    notes: {
+      type: String,
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-const Order = mongoose.models.Order || mongoose.model("Order", OrderSchema);
+// Generate a unique order number before saving
+orderSchema.pre("save", async function (next) {
+  if (this.isNew) {
+    const date = new Date();
+    const year = date.getFullYear().toString().slice(-2);
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+
+    // Get count of orders for today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const count = await mongoose.model("Order").countDocuments({
+      createdAt: { $gte: today },
+    });
+
+    // Format: YYMMDD-XXXX (where XXXX is a sequential number for the day)
+    this.orderNumber = `${year}${month}${day}-${(count + 1)
+      .toString()
+      .padStart(4, "0")}`;
+  }
+  next();
+});
+
+const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);
 
 export default Order;

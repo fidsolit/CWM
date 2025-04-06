@@ -13,6 +13,8 @@ import {
   FaTimes,
   FaChevronDown,
   FaChevronUp,
+  FaPrint,
+  FaCheck,
 } from "react-icons/fa";
 import { toast } from "react-toastify";
 
@@ -34,6 +36,18 @@ interface CartItem extends Product {
   subtotal: number;
 }
 
+interface OrderResponse {
+  success: boolean;
+  order: {
+    _id: string;
+    orderNumber: string;
+    totalAmount: number;
+    status: string;
+    createdAt: string;
+  };
+  error?: string;
+}
+
 export default function POSSystem() {
   const products = useSelector((state: RootState) => state.Admin.product);
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,6 +57,17 @@ export default function POSSystem() {
   const [categories, setCategories] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<"products" | "cart">("products");
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"cash" | "card" | "gcash">(
+    "cash"
+  );
+  const [cashierName, setCashierName] = useState("");
+  const [orderNotes, setOrderNotes] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [lastOrder, setLastOrder] = useState<OrderResponse["order"] | null>(
+    null
+  );
+  const [showOrderSuccess, setShowOrderSuccess] = useState(false);
 
   // Filter products based on search term and category
   useEffect(() => {
@@ -151,21 +176,103 @@ export default function POSSystem() {
     return cart.reduce((total, item) => total + item.subtotal, 0);
   };
 
+  // Toggle view mode
+  const toggleViewMode = () => {
+    setViewMode(viewMode === "products" ? "cart" : "products");
+  };
+
+  // Open checkout modal
+  const openCheckoutModal = () => {
+    if (cart.length === 0) {
+      toast.error("Cart is empty!");
+      return;
+    }
+    setShowCheckoutModal(true);
+  };
+
+  // Close checkout modal
+  const closeCheckoutModal = () => {
+    setShowCheckoutModal(false);
+    setPaymentMethod("cash");
+    setCashierName("");
+    setOrderNotes("");
+  };
+
   // Process checkout
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (cart.length === 0) {
       toast.error("Cart is empty!");
       return;
     }
 
-    // Here you would typically send the order to your backend
-    toast.success("Order processed successfully!");
-    setCart([]);
+    if (!cashierName.trim()) {
+      toast.error("Please enter cashier name");
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      // Prepare order data
+      const orderData = {
+        items: cart.map((item) => ({
+          productId: item._id,
+          productName: item.productName,
+          quantity: item.quantity,
+          price: Number(item.productPrice),
+          subtotal: item.subtotal,
+        })),
+        totalAmount: calculateTotal(),
+        paymentMethod,
+        cashier: cashierName,
+        notes: orderNotes,
+      };
+
+      // Send order to backend
+      const response = await fetch("/api/pos/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      const result: OrderResponse = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to process order");
+      }
+
+      // Show success message
+      setLastOrder(result.order);
+      setShowOrderSuccess(true);
+      setShowCheckoutModal(false);
+
+      // Clear cart
+      setCart([]);
+
+      toast.success(
+        `Order #${result.order.orderNumber} processed successfully!`
+      );
+    } catch (error) {
+      console.error("Error processing order:", error);
+      toast.error(
+        error instanceof Error ? error.message : "Failed to process order"
+      );
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
-  // Toggle view mode
-  const toggleViewMode = () => {
-    setViewMode(viewMode === "products" ? "cart" : "products");
+  // Close order success modal
+  const closeOrderSuccess = () => {
+    setShowOrderSuccess(false);
+    setLastOrder(null);
+  };
+
+  // Print receipt (mock function)
+  const printReceipt = () => {
+    toast.info("Receipt printing functionality would be implemented here");
   };
 
   return (
@@ -429,7 +536,7 @@ export default function POSSystem() {
                   </span>
                 </div>
                 <button
-                  onClick={handleCheckout}
+                  onClick={openCheckoutModal}
                   className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:from-green-600 hover:to-green-700 transition-colors shadow-md"
                 >
                   <FaCashRegister className="text-xl" />
@@ -440,6 +547,202 @@ export default function POSSystem() {
           )}
         </div>
       </div>
+
+      {/* Checkout Modal */}
+      {showCheckoutModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+              <h2 className="text-xl font-bold">Complete Order</h2>
+              <button
+                onClick={closeCheckoutModal}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <FaTimes />
+              </button>
+            </div>
+
+            <div className="p-4">
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Cashier Name
+                </label>
+                <input
+                  type="text"
+                  value={cashierName}
+                  onChange={(e) => setCashierName(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter cashier name"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Payment Method
+                </label>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setPaymentMethod("cash")}
+                    className={`flex-1 py-2 rounded-md border ${
+                      paymentMethod === "cash"
+                        ? "bg-blue-100 border-blue-500 text-blue-700"
+                        : "border-gray-300 hover:bg-gray-50"
+                    }`}
+                  >
+                    Cash
+                  </button>
+                  <button
+                    onClick={() => setPaymentMethod("card")}
+                    className={`flex-1 py-2 rounded-md border ${
+                      paymentMethod === "card"
+                        ? "bg-blue-100 border-blue-500 text-blue-700"
+                        : "border-gray-300 hover:bg-gray-50"
+                    }`}
+                  >
+                    Card
+                  </button>
+                  <button
+                    onClick={() => setPaymentMethod("gcash")}
+                    className={`flex-1 py-2 rounded-md border ${
+                      paymentMethod === "gcash"
+                        ? "bg-blue-100 border-blue-500 text-blue-700"
+                        : "border-gray-300 hover:bg-gray-50"
+                    }`}
+                  >
+                    GCash
+                  </button>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Notes (Optional)
+                </label>
+                <textarea
+                  value={orderNotes}
+                  onChange={(e) => setOrderNotes(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Add any notes about this order"
+                  rows={3}
+                />
+              </div>
+
+              <div className="border-t border-gray-200 pt-4">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-lg font-semibold">Total:</span>
+                  <span className="text-2xl font-bold text-green-600">
+                    ₱{calculateTotal().toFixed(2)}
+                  </span>
+                </div>
+
+                <button
+                  onClick={handleCheckout}
+                  disabled={isProcessing}
+                  className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:from-green-600 hover:to-green-700 transition-colors shadow-md disabled:opacity-70"
+                >
+                  {isProcessing ? (
+                    <>
+                      <svg
+                        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <FaCashRegister className="text-xl" />
+                      <span className="font-medium">Complete Order</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Order Success Modal */}
+      {showOrderSuccess && lastOrder && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+              <h2 className="text-xl font-bold text-green-600">
+                Order Successful!
+              </h2>
+              <button
+                onClick={closeOrderSuccess}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <FaTimes />
+              </button>
+            </div>
+
+            <div className="p-4">
+              <div className="flex flex-col items-center justify-center mb-4">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                  <FaCheck className="text-3xl text-green-600" />
+                </div>
+                <h3 className="text-xl font-bold">
+                  Order #{lastOrder.orderNumber}
+                </h3>
+                <p className="text-gray-600">has been processed successfully</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg mb-4">
+                <div className="flex justify-between mb-2">
+                  <span className="text-gray-600">Order Number:</span>
+                  <span className="font-medium">{lastOrder.orderNumber}</span>
+                </div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-gray-600">Total Amount:</span>
+                  <span className="font-medium">
+                    ₱{lastOrder.totalAmount.toFixed(2)}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Status:</span>
+                  <span className="font-medium text-green-600">
+                    {lastOrder.status}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                <button
+                  onClick={printReceipt}
+                  className="flex-1 bg-gray-200 text-gray-800 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300 transition-colors"
+                >
+                  <FaPrint />
+                  <span>Print Receipt</span>
+                </button>
+                <button
+                  onClick={closeOrderSuccess}
+                  className="flex-1 bg-blue-600 text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors"
+                >
+                  <FaCheck />
+                  <span>Done</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
