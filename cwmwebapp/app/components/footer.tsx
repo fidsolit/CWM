@@ -14,7 +14,7 @@ export default function Footer() {
     { src: "/companylogos/company1.jpg", alt: "com1" },
     { src: "/companylogos/company2.jpg", alt: "comp2" },
     { src: "/companylogos/company3.jpg", alt: "comp3" },
-    { src: "/companylogos/company4.jpg", alt: "comp4" },
+    { src: "/companylogos/company4.png", alt: "comp4" },
   ];
 
   // Automatically change logos every 4 seconds
