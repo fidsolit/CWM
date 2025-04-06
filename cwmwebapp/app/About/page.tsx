@@ -162,46 +162,73 @@ const About = () => {
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-300"
+                className="group bg-white rounded-xl shadow-lg p-6 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden transition-all duration-300"
               >
-                <div className="flex items-center mb-4">
-                  <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
+                {/* Large background image with overlay */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                  <Image
+                    src={testimonial.image}
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                <div className="flex items-center mb-4 relative z-10">
+                  <div className="relative w-20 h-20 rounded-full overflow-hidden mr-4 border-4 border-blue-500 group-hover:border-purple-500 transition-colors duration-300">
                     <Image
                       src={testimonial.image}
                       alt={testimonial.name}
                       fill
-                      className="object-cover"
+                      className="object-cover transform group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg">{testimonial.name}</h3>
+                    <h3 className="font-bold text-lg group-hover:text-blue-600 transition-colors duration-300">
+                      {testimonial.name}
+                    </h3>
                     <p className="text-gray-600">{testimonial.role}</p>
-                    <p className="text-sm text-blue-600">
+                    <p className="text-sm text-blue-600 group-hover:text-purple-600 transition-colors duration-300">
                       {testimonial.company}
                     </p>
                   </div>
                 </div>
-                <p className="text-gray-700 italic">"{testimonial.quote}"</p>
+                <p className="text-gray-700 italic relative z-10 group-hover:text-gray-900 transition-colors duration-300">
+                  "{testimonial.quote}"
+                </p>
+
+                {/* Quote icon */}
+                <div className="absolute bottom-2 right-2 text-blue-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-12 w-12"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                  </svg>
+                </div>
               </div>
             ))}
           </div>
 
           {/* Client Logos */}
-          <div className="mt-16">
-            <h3 className="text-2xl font-bold text-center mb-8">
+          <div className="mt-20">
+            <h3 className="text-2xl font-bold text-center mb-12">
               Trusted By Industry Leaders
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 items-center justify-items-center">
               {clientLogos.map((logo, index) => (
                 <div
                   key={index}
-                  className="relative w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300"
+                  className="relative w-40 h-24 grayscale hover:grayscale-0 transition-all duration-500 group"
                 >
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-blue-500/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-blue-500/10 transition-all duration-500 rounded-lg"></div>
                   <Image
                     src={logo.src}
                     alt={logo.alt}
                     fill
-                    className="object-contain"
+                    className="object-contain transform group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
               ))}
