@@ -323,6 +323,7 @@ export default function Page() {
                 <option value="PayPal">PayPal</option>
                 <option value="GCash">GCash</option>
                 <option value="COD">COD</option>
+                <option value="cash">CASH</option>
               </select>
             </div>
 
@@ -344,7 +345,7 @@ export default function Page() {
         loading={loader}
       />
 
-      <ToastContainer />
+      <ToastContainer aria-label="Notifications" />
     </div>
   );
 }

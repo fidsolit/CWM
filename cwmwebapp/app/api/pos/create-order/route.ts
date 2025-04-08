@@ -3,11 +3,28 @@ import connectMongoDB from "../../../../libs/mongodb";
 import Order from "../../../../models/Order";
 import Product from "../../../../models/Product";
 
+// Define types for the request body
+interface OrderItem {
+  productId: string;
+  productName: string;
+  quantity: number;
+  price: number;
+  subtotal: number;
+}
+
+interface OrderRequestBody {
+  items: OrderItem[];
+  totalAmount: number;
+  paymentMethod?: string;
+  cashier: string;
+  notes?: string;
+}
+
 export async function POST(request: NextRequest) {
   try {
     await connectMongoDB();
 
-    const body = await request.json();
+    const body = (await request.json()) as OrderRequestBody;
     const { items, totalAmount, paymentMethod, cashier, notes } = body;
 
     // Validate required fields
@@ -18,11 +35,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Transform items to orderItems format
+    const orderItems = items.map((item: OrderItem) => ({
+      product: item.productId,
+      productName: item.productName,
+      quantity: item.quantity,
+      price: item.price,
+      subtotal: item.subtotal,
+    }));
+
     // Create the order
     const order = new Order({
-      items,
+      orderItems,
       totalAmount,
-      paymentMethod: paymentMethod || "cash",
+      paymentMethod: paymentMethod || "PayPal",
       cashier,
       notes: notes || "",
     });
