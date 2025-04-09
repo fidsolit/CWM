@@ -48,10 +48,36 @@ export async function POST(request: NextRequest) {
     const order = new Order({
       orderItems,
       totalAmount,
-      paymentMethod: paymentMethod || "PayPal",
+      paymentMethod: paymentMethod || "cash",
       cashier,
       notes: notes || "",
     });
+
+    // Generate order number manually if needed
+    if (!order.orderNumber) {
+      const date = new Date();
+      const year = date.getFullYear().toString().slice(-2);
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+      const day = date.getDate().toString().padStart(2, "0");
+
+      // Get count of orders created today
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const count = await Order.countDocuments({
+        createdAt: {
+          $gte: today,
+          $lt: tomorrow,
+        },
+      });
+
+      // Generate order number: YYMMDD-XXXX (where XXXX is the sequential number for the day)
+      order.orderNumber = `${year}${month}${day}-${(count + 1)
+        .toString()
+        .padStart(4, "0")}`;
+    }
 
     // Save the order
     await order.save();
