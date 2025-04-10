@@ -78,7 +78,7 @@ export default function Navbar() {
   const handleLogout = () => {
     Cookies.remove("token");
     localStorage.clear();
-    location.reload();
+    dispatch(setUserData(null));
     router.push("/");
   };
   return (
