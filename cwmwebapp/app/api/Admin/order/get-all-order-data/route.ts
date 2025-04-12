@@ -18,9 +18,9 @@ export async function GET(req: Request) {
     const isAuthenticated = await AuthCheck(req);
 
     if (isAuthenticated === "admin") {
-      const getData = await Order.find({})
-        .populate("orderItems.product")
-        .populate("user");
+      const getData = await Order.find({});
+      // .populate("orderItems.product")
+      // .populate("user");
       if (getData) {
         return NextResponse.json({ success: true, data: getData });
       } else {
