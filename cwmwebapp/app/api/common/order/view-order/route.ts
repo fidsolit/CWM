@@ -26,9 +26,10 @@ export async function GET(req: Request) {
     const isAuthenticated = await AuthCheck(req);
 
     if (isAuthenticated) {
-      const getData = await Order.find({ user: id });
-      // .populate("orderItems.product")
-      // .populate("user");
+      const getData = await Order.find({ user: id })
+        // .populate("orderItems.product")
+
+        .populate("user");
       if (getData) {
         return NextResponse.json({ success: true, data: getData });
       } else {

@@ -24,7 +24,7 @@ interface Order {
     };
     _id: string;
   }[];
-  totalPrice: number;
+  totalAmount: number;
   _id: string;
 }
 
@@ -87,7 +87,7 @@ export default function PendingOrdersDataTable() {
     },
     {
       name: "Total Price",
-      selector: (row: Order) => row.totalPrice,
+      selector: (row: Order) => row.totalAmount,
       sortable: true,
     },
     {
