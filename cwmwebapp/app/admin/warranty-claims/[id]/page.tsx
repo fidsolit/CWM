@@ -9,6 +9,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaShieldAlt, FaArrowLeft } from "react-icons/fa";
 
+interface User {
+  role?: string;
+  [key: string]: any;
+}
+
 interface WarrantyClaim {
   _id: string;
   user: {
@@ -38,11 +43,12 @@ export default function WarrantyClaimDetail({
   params: { id: string };
 }) {
   const [claim, setClaim] = useState<WarrantyClaim | null>(null);
+
   const [loading, setLoading] = useState(true);
   const [adminNotes, setAdminNotes] = useState("");
   const [resolution, setResolution] = useState("");
   const router = useRouter();
-  const user = useSelector((state: RootState) => state.User.userData);
+  const user = useSelector((state: RootState) => state.User.userData) as User;
 
   useEffect(() => {
     if (!user || user.role !== "admin") {
