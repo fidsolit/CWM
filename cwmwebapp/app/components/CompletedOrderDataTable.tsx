@@ -6,15 +6,17 @@ import { useSWRConfig } from "swr";
 import { toast } from "react-toastify";
 import DataTable from "react-data-table-component";
 import Image from "next/image";
-import Loading from "@/app/loading";
+// import Loading from "@/app/loading";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Store/store";
 import { useRouter } from "next/navigation";
-import { delete_a_product } from "@/Services/Admin/product";
-import {
-  delete_a_bookmark_item,
-  get_all_bookmark_items,
-} from "@/Services/common/bookmark";
+// import { delete_a_product } from "@/Services/Admin/product";
+// import { delete_a_product } from "@/Services/Admin/product";
+
+// import {
+//   delete_a_bookmark_item,
+//   get_all_bookmark_items,
+// } from "@/Services/common/bookmark";
 import { setBookmark } from "@/utils/Bookmark";
 
 interface Order {
