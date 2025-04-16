@@ -3,9 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaTwitter } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
-import { FaInstagramSquare } from "react-icons/fa";
+import {
+  FaTwitter,
+  FaFacebook,
+  FaInstagramSquare,
+  FaLinkedin,
+} from "react-icons/fa";
 
 export default function Footer() {
   const [currentLogo, setCurrentLogo] = useState(0);
@@ -26,123 +29,99 @@ export default function Footer() {
   }, [logos.length]);
 
   return (
-    <footer className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-10 pb-6">
+    <footer className="bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap text-left lg:text-left">
+        <div className="flex flex-wrap text-left lg:text-left gap-y-12">
           <div className="w-full lg:w-6/12 px-4">
-            <h4 className="text-4xl font-bold text-white mb-4">
+            <h4 className="text-4xl font-bold text-white mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-white">
               Stay Connected!
             </h4>
-            <h5 className="text-lg mt-0 mb-6 text-gray-300">
-              Follow us on social media. We respond within 1-2 business days.
+            <h5 className="text-xl mt-0 mb-8 text-gray-300 leading-relaxed">
+              Follow us on social media for updates, news, and exclusive
+              content. We respond within 1-2 business days.
             </h5>
-            <div className="mt-6 flex space-x-4">
-              {/* <a
-                href="https://twitter.com"
-                className="bg-white text-blue-400 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full hover:bg-blue-400 hover:text-white transition-colors duration-300"
-              >
-             
-                <FaTwitter />
-              </a> */}
+            <div className="mt-6 flex space-x-6">
               <a
                 href="https://www.facebook.com/FCodesCompany"
-                className="bg-white text-blue-600 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300"
+                className="bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg font-normal h-12 w-12 flex items-center justify-center rounded-lg hover:scale-110 hover:shadow-blue-500/50 transition-all duration-300"
               >
-                {/* <i className="fab fa-facebook" /> */}
-                <FaFacebook />
+                <FaFacebook size={24} />
               </a>
-              {/* <a
-                href="https://dribbble.com"
-                className="bg-white text-pink-500 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full hover:bg-pink-500 hover:text-white transition-colors duration-300"
-              >
-                <i className="fab fa-dribbble" />
-              </a> */}
               <a
-                href="https://www.facebook.com/FCodesCompany"
-                className="bg-white text-gray-800 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-800 hover:text-white transition-colors duration-300"
+                href="https://www.instagram.com"
+                className="bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg font-normal h-12 w-12 flex items-center justify-center rounded-lg hover:scale-110 hover:shadow-purple-500/50 transition-all duration-300"
               >
-                {/* <i className="fab fa-github" /> */}
-                <FaInstagramSquare />
+                <FaInstagramSquare size={24} />
+              </a>
+              <a
+                href="https://www.linkedin.com"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg font-normal h-12 w-12 flex items-center justify-center rounded-lg hover:scale-110 hover:shadow-blue-600/50 transition-all duration-300"
+              >
+                <FaLinkedin size={24} />
               </a>
             </div>
           </div>
           <div className="w-full lg:w-6/12 px-4">
-            <div className="flex flex-wrap mb-6">
+            <div className="flex flex-wrap mb-6 gap-y-8">
               <div className="w-full lg:w-4/12 px-4 ml-auto">
-                <span className="block uppercase text-gray-400 text-sm font-semibold mb-4">
+                <span className="block uppercase text-blue-300 text-sm font-bold mb-4">
                   Useful Links
                 </span>
-                <ul className="list-unstyled space-y-2">
+                <ul className="list-none space-y-3">
                   <li>
                     <Link
                       href="/About"
-                      className="text-gray-300 hover:text-white font-semibold transition-colors"
+                      className="text-gray-300 hover:text-white font-medium flex items-center transition-all hover:translate-x-2"
                     >
-                      About Us
+                      <span className="mr-2">→</span> About Us
                     </Link>
                   </li>
                   <li>
-                    <a
-                      href="https://blog.creative-tim.com"
-                      className="text-gray-300 hover:text-white font-semibold transition-colors"
+                    <Link
+                      href="/blog"
+                      className="text-gray-300 hover:text-white font-medium flex items-center transition-all hover:translate-x-2"
                     >
-                      Blog
-                    </a>
+                      <span className="mr-2">→</span> Blog
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="https://github.com/creativetimofficial"
-                      className="text-gray-300 hover:text-white font-semibold transition-colors"
+                    <Link
+                      href="/projects"
+                      className="text-gray-300 hover:text-white font-medium flex items-center transition-all hover:translate-x-2"
                     >
-                      Github
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.creative-tim.com/bootstrap-themes/free"
-                      className="text-gray-300 hover:text-white font-semibold transition-colors"
-                    >
-                      Free Products
-                    </a>
+                      <span className="mr-2">→</span> Projects
+                    </Link>
                   </li>
                 </ul>
               </div>
               <div className="w-full lg:w-4/12 px-4">
-                <span className="block uppercase text-gray-400 text-sm font-semibold mb-4">
+                <span className="block uppercase text-blue-300 text-sm font-bold mb-4">
                   Other Resources
                 </span>
-                <ul className="list-unstyled space-y-2">
+                <ul className="list-none space-y-3">
                   <li>
-                    <a
-                      href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md"
-                      className="text-gray-300 hover:text-white font-semibold transition-colors"
+                    <Link
+                      href="/terms"
+                      className="text-gray-300 hover:text-white font-medium flex items-center transition-all hover:translate-x-2"
                     >
-                      MIT License
-                    </a>
+                      <span className="mr-2">→</span> Terms & Conditions
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="https://creative-tim.com/terms"
-                      className="text-gray-300 hover:text-white font-semibold transition-colors"
+                    <Link
+                      href="/privacy"
+                      className="text-gray-300 hover:text-white font-medium flex items-center transition-all hover:translate-x-2"
                     >
-                      Terms & Conditions
-                    </a>
+                      <span className="mr-2">→</span> Privacy Policy
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="https://creative-tim.com/privacy"
-                      className="text-gray-300 hover:text-white font-semibold transition-colors"
+                    <Link
+                      href="/contact"
+                      className="text-gray-300 hover:text-white font-medium flex items-center transition-all hover:translate-x-2"
                     >
-                      Privacy Policy
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://creative-tim.com/contact-us"
-                      className="text-gray-300 hover:text-white font-semibold transition-colors"
-                    >
-                      Contact Us
-                    </a>
+                      <span className="mr-2">→</span> Contact Us
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -151,11 +130,11 @@ export default function Footer() {
         </div>
 
         {/* Logo Carousel for satisfied companies */}
-        <div className="my-8">
-          <h4 className="text-2xl font-bold text-center mb-6">
-            Satisfied Companies
+        <div className="my-16">
+          <h4 className="text-2xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-white">
+            Trusted By Leading Companies
           </h4>
-          <div className="relative h-[120px] flex justify-center items-center overflow-hidden">
+          <div className="relative h-[120px] flex justify-center items-center overflow-hidden bg-white/5 rounded-xl backdrop-blur-sm p-4">
             {logos.map((logo, index) => (
               <div
                 key={index}
@@ -171,29 +150,30 @@ export default function Footer() {
                   alt={logo.alt}
                   width={150}
                   height={80}
-                  className="mx-auto"
+                  className="mx-auto filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
                 />
               </div>
             ))}
           </div>
         </div>
 
-        <hr className="my-6 border-gray-600" />
-        <div className="flex flex-wrap items-center justify-between">
+        <hr className="my-8 border-white/10" />
+        <div className="flex flex-wrap items-center justify-center">
           <div className="w-full md:w-4/12 px-4 mx-auto text-center">
-            <div className="text-sm text-gray-400 font-semibold py-1">
+            <div className="text-sm text-gray-400 font-medium py-1">
               &copy; {new Date().getFullYear()}{" "}
               <a
                 href="https://www.facebook.com/FCodesCompany"
-                className="text-white hover:text-gray-300 transition-colors"
+                className="text-white hover:text-blue-300 transition-colors font-bold"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                FCODES BY{" "}
-              </a>
+                FCODES
+              </a>{" "}
+              by{" "}
               <a
                 href="https://www.facebook.com/PARDILLONABLEFIDELITO/"
-                className="text-white hover:text-gray-300 transition-colors"
+                className="text-white hover:text-blue-300 transition-colors font-bold"
                 target="_blank"
                 rel="noopener noreferrer"
               >
