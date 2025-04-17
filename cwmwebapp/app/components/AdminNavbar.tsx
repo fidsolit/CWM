@@ -21,7 +21,7 @@ export default function AdminNavbar() {
   };
 
   return (
-    <div className="navbar dark:text-black bg-red">
+    <div className="navbar dark:text-black md:mt-5 bg-red">
       <div className="flex-1">
         <div className="dropdown md:hidden">
           <label tabIndex={0} className="btn btn-active btn-circle">
@@ -42,7 +42,7 @@ export default function AdminNavbar() {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow text-black bg-gray-50 rounded-box w-52"
+            className="menu menu-compact dropdown-content md:mt-10 p-2 shadow text-black bg-gray-50 rounded-box w-52"
           >
             <li onClick={() => dispatch(setNavActive("Base"))}>
               <button>Homepage</button>
@@ -77,16 +77,16 @@ export default function AdminNavbar() {
             <li onClick={() => dispatch(setNavActive("activePOS"))}>
               <button className="flex items-center gap-2">
                 <FaCashRegister className="text-green-600" />
-                <span>POS System</span>
+                {/* <span>POS System 1</span> */}
               </button>
             </li>
           </ul>
         </div>
       </div>
-      <div className="flex-none gap-2">
+      <div className="flex-none gap-2 ">
         <button
           onClick={() => dispatch(setNavActive("activePOS"))}
-          className="btn btn-primary gap-2 hidden md:flex"
+          className="btn btn-primary gap-2 hidden mt-5 md:flex"
         >
           <FaCashRegister className="text-xl" />
           <span>POS System</span>
