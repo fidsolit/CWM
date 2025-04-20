@@ -87,7 +87,7 @@ export default function Dashboard() {
     dispatch(setUserDatacount(usersCountData));
   }, [
     categoryData,
-    dispatch,
+    // dispatch,
     categoryLoading,
     productData,
     productLoading,

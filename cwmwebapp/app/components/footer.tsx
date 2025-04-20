@@ -154,6 +154,16 @@ export default function Footer() {
                 />
               </div>
             ))}
+            {/* <img
+              className="w-auto h-auto"
+              src="/companylogos/company1.jpg"
+              alt="company1"
+            />
+            <img
+              className="w-auto h-auto"
+              src="/companylogos/company2.jpg"
+              alt="company1"
+            /> */}
           </div>
         </div>
 
