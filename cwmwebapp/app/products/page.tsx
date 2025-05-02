@@ -52,8 +52,8 @@ export default function Products() {
     productName: string;
     productImage: string;
     productSlug: string;
-    productPrice: Number;
-    productFeatured: Boolean;
+    productPrice: number;
+    productFeatured: boolean;
     productCategory: {
       categoryName: string;
       _id: string;
