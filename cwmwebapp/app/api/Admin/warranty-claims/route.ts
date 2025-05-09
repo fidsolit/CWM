@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import WarrantyClaim from "@/models/WarrantyClaim";
-import { verifyToken } from "@/lib/auth";
+// import { verifyToken } from "@/lib/auth";
+import AuthCheck from "@/middleware/AuthCheck";
 
 export async function GET(request: Request) {
   try {
@@ -13,7 +14,7 @@ export async function GET(request: Request) {
       );
     }
 
-    const decoded = await verifyToken(token);
+    const decoded = await AuthCheck(request);
     if (!decoded || decoded.role !== "admin") {
       return NextResponse.json(
         { success: false, message: "Unauthorized" },
@@ -48,7 +49,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const decoded = await verifyToken(token);
+    const decoded = await AuthCheck(request);
     if (!decoded || decoded.role !== "admin") {
       return NextResponse.json(
         { success: false, message: "Unauthorized" },
