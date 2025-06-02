@@ -18,6 +18,7 @@ export async function POST(req: Request) {
 
     if (isAuthenticated) {
       const data = await req.json();
+      console.log("Data in add to cart by fede :", data);
       const { productID, userID } = data;
 
       const { error } = AddToCart.validate({ productID, userID });
