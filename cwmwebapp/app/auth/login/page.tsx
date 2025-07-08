@@ -72,7 +72,7 @@ export default function Login() {
               <form
                 onSubmit={handleSubmit}
                 className="space-y-4 md:space-y-6"
-                action="#"
+                // action="#"
               >
                 <div className="text-left">
                   <label

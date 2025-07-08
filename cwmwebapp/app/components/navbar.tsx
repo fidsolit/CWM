@@ -202,7 +202,7 @@ export default function Navbar() {
         ) : (
           <button
             onClick={() => router.push("/auth/login")}
-            className="btn text-black mx-2"
+            className="btn text-white mx-2"
           >
             Login
           </button>
