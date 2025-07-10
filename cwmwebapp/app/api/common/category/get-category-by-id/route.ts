@@ -6,7 +6,8 @@ import Category from "@/models/Category";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
-  await connectDB();
+ await connectDB();
+  
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
@@ -18,7 +19,7 @@ export async function GET(req: Request) {
         message: "Please provide category id.",
       });
 
-    const isAuthenticated = await AuthCheck(req);
+    // const isAuthenticated = await AuthCheck(req);
 
     const getData = await Category.findById(id);
     if (getData) {

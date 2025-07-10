@@ -200,6 +200,7 @@ export default function ResetPassword() {
       for (let i = 0; i < 5; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
         code += characters[randomIndex];
+        console.log("code from  random :"+ code);
       }
       return code;
     };
