@@ -19,7 +19,7 @@ export async function GET(req: Request) {
         message: "Please provide category id.",
       });
 
-    // const isAuthenticated = await AuthCheck(req);
+    // const isAuthenticated = await AuthCheck(req); f
 
     const getData = await Category.findById(id);
     if (getData) {

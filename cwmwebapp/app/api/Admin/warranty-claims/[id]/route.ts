@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import WarrantyClaim from "@/models/WarrantyClaim";
 import { verifyToken } from "@/lib/auth";
+import AuthCheck from "@/middleware/AuthCheck";
 
 export async function GET(
   request: Request,
