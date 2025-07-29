@@ -188,7 +188,8 @@ export default function Page({
 
   return (
     <div className="w-full bg-gray-50 h-screen px-2 md:mt-20 py-2">
-      <div className="text-sm breadcrumbs  border-b-2 border-b-blue-600">
+      {/* <div className="text-sm breadcrumbs  border-b-2 border-b-blue-600"> */}
+    <div className="text-sm breadcrumbs md:mt-20 "> 
         <ul>
           <li>
             <Link href={"/"}>
