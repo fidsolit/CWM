@@ -42,7 +42,9 @@ export default function Login() {
       const userDataString = typeof userData === "string" ? userData : "";
       dispatch(setUserData(JSON.parse(userDataString)));
       if (res?.finalData?.user?.role === "admin") {
+         console.table("this is the table: console",res);
         Router.push("/Dashboard");
+       
       } else {
         Router.push("/");
         toast.success(res.message);
