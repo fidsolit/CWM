@@ -39,8 +39,9 @@ export async function POST(req: Request) {
 
     const token = jwt.sign(
       { id: checkUser._id, email: checkUser.email, role: checkUser?.role },
-      process.env.JWT_SECREAT ?? "default_secret_dumbScret",
-      { expiresIn: "1d" }
+      process.env.JWT_SECREAT ?? "default_secret_key",
+      // { expiresIn: "1d" }    // changed from "1d" to minutes in seconds
+         { expiresIn: 120 }   // changed to 2 minutes in seconds
     );
 
     const finalData = {
