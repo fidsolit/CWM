@@ -18,9 +18,9 @@ export async function GET(req: Request) {
     const isAuthenticated = await AuthCheck(req);
 
     if (isAuthenticated === "admin") {
-      const getData = await Order.find({});
-      // .populate("orderItems.product")
-      // .populate("user");
+      const getData = await Order.find({})
+      .populate("orderItems.product") //where orderItems is an array of objects with product field
+      .populate("user"); // where user is a reference to the User model
       if (getData) {
         return NextResponse.json({ success: true, data: getData });
       } else {
@@ -33,7 +33,7 @@ export async function GET(req: Request) {
     } else {
       return NextResponse.json({
         success: false,
-        message: "You are not authorized Please login!",
+        message: "You are not authorized Please login! by fidel",
       });
     }
   } catch (error) {
