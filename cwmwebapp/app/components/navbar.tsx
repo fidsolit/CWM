@@ -136,6 +136,9 @@ export default function Navbar() {
             <li>
               <Link href={"/warranty"}>Warranty</Link>
             </li>
+            <li>
+              <Link href={"/TestingArea"}>BETA TEST</Link>
+            </li>
           </ul>
         </div>
         <h1 className="text-black font-bold text-xl hidden lg:block">
@@ -170,6 +173,9 @@ export default function Navbar() {
           <li className="hover:bg-gray-100 rounded-lg">
             <Link href={"/warranty"}>Warranty</Link>
           </li>
+           <li>
+              <Link href={"/TestingArea"}>BETA TEST</Link>
+            </li>
         </ul>
       </div>
 
