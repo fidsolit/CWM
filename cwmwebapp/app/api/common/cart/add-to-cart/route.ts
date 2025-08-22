@@ -55,7 +55,7 @@ export async function POST(req: Request) {
     } else {
       return NextResponse.json({
         success: false,
-        message: "You are not authorized Please login!",
+        message: "You are not authorized Please login! from add to cart",
       });
     }
   } catch (error) {

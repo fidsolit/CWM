@@ -42,7 +42,7 @@ export async function GET(req: Request) {
     } else {
       return NextResponse.json({
         success: false,
-        message: "You are not authorized Please login!",
+        message: "You are not authorized Please login! from boock mark product common",
       });
     }
   } catch (error) {

@@ -41,7 +41,8 @@ export async function POST(req: Request) {
       { id: checkUser._id, email: checkUser.email, role: checkUser?.role },
       process.env.JWT_SECREAT ?? "default_secret_key",
       // { expiresIn: "1d" }    // changed from "1d" to minutes in seconds
-         { expiresIn: 120 }   // changed to 2 minutes in seconds
+   
+         {expiresIn: "1d"} // changed to 1day
     );
 
     const finalData = {
